@@ -56,10 +56,18 @@ def compare_policy_versions(
     For PMSS, compares 2023-24 vs 2026-27.
     Returns structured comparison response conforming to CiviQ contract.
     """
+    norm_id = (scheme_id or "").strip().lower()
+    if norm_id in ["pmss", "pmsy", "pm_scholarship", "pm_scholarship_warb", "warb"]:
+        scheme_id = "pm_scholarship_warb"
+
     # Resolve scheme data
     target_data = scheme_data
     if target_data is None:
         target_data = _load_scheme_by_id(scheme_id)
+
+    # If scheme is PMSS, ensure canonical data is loaded
+    if scheme_id == "pm_scholarship_warb" and (target_data is None or not target_data.get("policy_diff")):
+        target_data = _load_scheme_by_id("pm_scholarship_warb")
 
     # Defaults for PMSS
     sid = target_data.get("id", scheme_id) if target_data else scheme_id

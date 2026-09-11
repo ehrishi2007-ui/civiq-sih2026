@@ -27,14 +27,18 @@ export default function SchemeDetail() {
         const data = await getSchemeById(id);
         setScheme(data);
 
-        // Fetch comparison for schemes with policy changes / comparison available (e.g. PMSS)
-        try {
-          const compRes = await compareSchemePolicy(id, profile);
-          if (compRes && (compRes.changes?.length > 0 || compRes.status || compRes.message)) {
-            setComparison(compRes);
+        // Only fetch comparison for schemes with policy changes (PMSS)
+        const isPMSS = ['pm_scholarship_warb', 'pmss', 'pmsy'].includes(id?.toLowerCase()) || Boolean(data?.policy_diff);
+        if (isPMSS) {
+          try {
+            const compRes = await compareSchemePolicy('pm_scholarship_warb', profile);
+            if (compRes && (compRes.changes?.length > 0 || compRes.verified)) {
+              setComparison(compRes);
+            }
+          } catch (compErr) {
+            setComparison(null);
           }
-        } catch (compErr) {
-          // If comparator returns 404 or fails for a non-compared scheme, proceed cleanly
+        } else {
           setComparison(null);
         }
       } catch (error) {
@@ -187,54 +191,25 @@ export default function SchemeDetail() {
         onSelectEvidence={setSelectedEvidence} 
       />
 
-      {/* Policy Change Diffs & Impact */}
-      {comparison && (
+      {/* Policy Change Diffs & Impact — Verified Revisions */}
+      {comparison && comparison.verified && comparison.changes && comparison.changes.length > 0 && (
         <div className="mt-12 mb-8">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-xl font-bold text-slate-900">
-              Policy Version Comparison ({comparison.old_version || 'Previous'} vs {comparison.new_version || 'New'})
+              Policy Version Comparison ({comparison.old_version || '2023-24'} vs {comparison.new_version || '2026-27'})
             </h2>
-            {comparison.verified ? (
-              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
-                <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600" />
-                Verified Guidelines
-              </span>
-            ) : (
-              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
-                <AlertTriangle className="w-3.5 h-3.5 mr-1 text-amber-600" />
-                {comparison.status || 'UNVERIFIED'}
-              </span>
-            )}
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+              <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600" />
+              Verified Guidelines
+            </span>
           </div>
 
           <p className="text-slate-600 mb-4">
-            {comparison.message || "Compare scheme guideline revisions and citizen eligibility impact."}
+            {comparison.message || "Verified comparison between official PMSS 2023-24 guidelines and revised policy notification."}
           </p>
 
-          {/* If verified changes are present, render the DiffTable */}
-          {comparison.changes && comparison.changes.length > 0 ? (
-            <DiffTable changes={comparison.changes} />
-          ) : (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-bold text-amber-900 mb-1">
-                    Conservative Policy Grounding Active
-                  </h4>
-                  <p className="text-sm text-amber-800 leading-relaxed">
-                    {comparison.message}
-                  </p>
-                  {comparison.sources && comparison.sources.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-amber-200/60 text-xs text-amber-900">
-                      <span className="font-semibold">Official Source Reference: </span>
-                      {comparison.sources[0].doc_name || comparison.sources[0].document} (Page {comparison.sources[0].page}) — "{comparison.sources[0].quote}"
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
+          {/* Render Verified DiffTable */}
+          <DiffTable changes={comparison.changes} />
 
           {/* Personalized Impact Card if impact is evaluated */}
           {comparison.impact && (
