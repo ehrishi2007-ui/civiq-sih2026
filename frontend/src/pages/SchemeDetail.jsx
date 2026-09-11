@@ -194,6 +194,10 @@ export default function SchemeDetail() {
           )}
 
           {/* Personalized Impact Card if impact is evaluated */}
+          {comparison.impact && (
+            <ImpactCard impact={comparison.impact} />
+          )}
+
           {comparison.personalized_impact && (
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mt-4">
               <h4 className="text-sm font-bold text-slate-900 mb-1">Eligibility Impact Assessment</h4>

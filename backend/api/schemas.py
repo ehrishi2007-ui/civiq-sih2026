@@ -178,6 +178,7 @@ class ComparatorResponse(BaseModel):
     message: str
     changes: List[PolicyChangeItem] = Field(default_factory=list)
     diff_matrix: List[Dict[str, Any]] = Field(default_factory=list)
+    impact: Optional[Dict[str, Any]] = None
     personalized_impact: Optional[str] = None
     sources: List[Dict[str, Any]] = Field(default_factory=list)
 

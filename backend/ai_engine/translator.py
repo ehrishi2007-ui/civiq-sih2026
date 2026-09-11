@@ -14,7 +14,49 @@ try:
 except ImportError:
     from backend.api.config import settings
 
+import os
+from google import genai
+
 logger = logging.getLogger(__name__)
+
+
+def _get_gemini_client() -> Optional[genai.Client]:
+    """Initializes Gemini client using GEMINI_API_KEY from environment or settings."""
+    api_key = os.getenv("GEMINI_API_KEY") or getattr(settings, "GEMINI_API_KEY", "")
+    if not api_key:
+        return None
+    try:
+        return genai.Client(api_key=api_key)
+    except Exception as exc:
+        logger.warning("Failed to initialize Gemini client for translation: %s", exc)
+        return None
+
+
+def _call_gemini_translate(text: str, target_lang: str) -> Optional[str]:
+    """
+    Translates text to target language using Gemini AI.
+    Used as primary AI fallback when Google Cloud Translation API is unconfigured.
+    """
+    client = _get_gemini_client()
+    if not client:
+        return None
+    lang_name = SUPPORTED_LANGUAGES.get(target_lang, target_lang)
+    model_name = os.getenv("GEMINI_MODEL") or getattr(settings, "GEMINI_MODEL", "gemini-3.5-flash-lite")
+    prompt = (
+        f"Translate the following Indian government scheme text into {lang_name}.\n"
+        f"Provide ONLY the direct translation in native script. Do not add quotes, transliteration, or explanatory notes.\n\n"
+        f"{text.strip()}"
+    )
+    try:
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt,
+        )
+        if response and response.text:
+            return response.text.strip().strip('"').strip("'")
+    except Exception as exc:
+        logger.warning("Gemini translation failed: %s", exc)
+    return None
 
 # Supported Indian languages + English as default/no-op
 SUPPORTED_LANGUAGES: Dict[str, str] = {
@@ -144,7 +186,15 @@ def translate_text_with_meta(text: str, target_lang: str) -> Tuple[str, str]:
         _SOURCE_LANG_CACHE[cache_key] = detected
         return translated, detected
 
-    # Fallback: return original text without caching failure; conservative language detection
+    # Second tier fallback: Gemini AI translation
+    gemini_trans = _call_gemini_translate(text, norm_target)
+    if gemini_trans:
+        detected = "en" if _is_ascii(text) else "und"
+        _CACHE[cache_key] = gemini_trans
+        _SOURCE_LANG_CACHE[cache_key] = detected
+        return gemini_trans, detected
+
+    # Ultimate fallback: return original text without caching failure; conservative language detection
     fallback_detected = "en" if _is_ascii(text) else "und"
     return text, fallback_detected
 
@@ -152,7 +202,7 @@ def translate_text_with_meta(text: str, target_lang: str) -> Tuple[str, str]:
 def translate_texts(texts: List[str], target_lang: str) -> List[str]:
     """
     Translate a list of UI strings into the target Indian language.
-    Adapts Dev1's batched translation pattern with Google Cloud Translation API.
+    Adapts Dev1's batched translation pattern with Google Cloud Translation API and Gemini fallback.
     """
     norm_target = validate_target_language(target_lang)
 
@@ -190,8 +240,8 @@ def translate_texts(texts: List[str], target_lang: str) -> List[str]:
                 _SOURCE_LANG_CACHE[cache_key] = item.get("detectedSourceLanguage") or ("en" if _is_ascii(orig_text) else "und")
                 results[idx] = translated
         else:
-            # Fallback for all uncached items without caching errors
+            # Fallback for all uncached items via individual translate_text (uses Gemini + caches)
             for idx in uncached_indices:
-                results[idx] = texts[idx]
+                results[idx] = translate_text(texts[idx], norm_target)
 
     return [r if r is not None else texts[idx] for idx, r in enumerate(results)]

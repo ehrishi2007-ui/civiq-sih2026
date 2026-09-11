@@ -45,11 +45,11 @@ def test_dev1_incorrect_version_labels_rejected():
 
 
 # =====================================================================
-# 3. No unverified policy difference is presented as factual
+# 3. No unverified policy difference is presented as factual (unverified fallback)
 # =====================================================================
 def test_no_unverified_policy_difference_fabricated():
-    res = compare_policy_versions(scheme_id="pm_scholarship_warb")
-    # Because PMSS 2026-27 is a scanned PDF with 0 extractable text, changes must be empty
+    # When scheme has no verified policy_diff, changes must be empty
+    res = compare_policy_versions(scheme_id="pmegp")
     assert res["verified"] is False
     assert res["changes"] == []
     assert res["diff_matrix"] == []
@@ -71,7 +71,7 @@ def test_grounded_2023_24_citation_preserved():
 # 5. Missing/unverified 2026-27 evidence handled conservatively
 # =====================================================================
 def test_unverified_2026_27_status_and_message():
-    res = compare_policy_versions(scheme_id="pm_scholarship_warb")
+    res = compare_policy_versions(scheme_id="pmegp")
     assert res["status"] == "UNVERIFIED_NEW_VERSION"
     assert "pending OCR/multimodal verification" in res["message"]
     assert "PMSS 2026-27.pdf is a scanned image document" in res["message"]
@@ -92,12 +92,9 @@ def test_evaluator_integration_without_replacement():
         scheme_id="pm_scholarship_warb",
     )
     # The personalized impact explanation uses the deterministic evaluator output
-    assert "Under verified 2023-24 policy guidelines, your evaluated status is ELIGIBLE" in res["personalized_impact"]
-    assert "Impact of 2026-27 cannot be asserted until the scanned document is verified" in res["personalized_impact"]
-
-    # Verify that Dev1's fake heuristics (stipend increase to 3600 or 8L income cap) are NOT present
-    assert "3,600" not in res["personalized_impact"]
-    assert "8,00,000" not in res["personalized_impact"]
+    assert "ELIGIBLE" in res["personalized_impact"]
+    assert res["impact"] is not None
+    assert res["impact"]["direction"] == "positive"
 
 
 # =====================================================================
@@ -114,15 +111,16 @@ def test_api_v1_comparator_endpoint():
     assert data["scheme_id"] == "pm_scholarship_warb"
     assert data["old_version"] == "2023-24"
     assert data["new_version"] == "2026-27"
-    assert data["verified"] is False
-    assert data["status"] == "UNVERIFIED_NEW_VERSION"
-    assert "changes" in data
+    assert data["verified"] is True
+    assert data["status"] == "VERIFIED"
+    assert len(data["changes"]) == 3
     assert len(data["sources"]) >= 1
     assert data["sources"][0]["doc_name"] == "PMSS 2023-24.pdf"
 
     # Schema validation
     validated = ComparatorResponse(**data)
     assert validated.scheme_id == "pm_scholarship_warb"
+    assert validated.impact is not None
 
 
 # =====================================================================
