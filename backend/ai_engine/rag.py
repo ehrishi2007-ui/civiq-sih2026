@@ -1,7 +1,10 @@
 import os
 from dotenv import load_dotenv
 from google import genai
-from backend.ai_engine.vector_store import get_uploaded_files
+try:
+    from backend.ai_engine.vector_store import get_uploaded_files
+except ModuleNotFoundError:
+    from ai_engine.vector_store import get_uploaded_files
 
 load_dotenv()
 
