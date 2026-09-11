@@ -16,10 +16,10 @@ export default function DiffTable({ changes }) {
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-slate-500 bg-slate-50 uppercase border-b border-slate-200">
             <tr>
-              <th className="px-5 py-3 font-medium">Parameter</th>
-              <th className="px-5 py-3 font-medium">Previous Policy</th>
-              <th className="px-5 py-3 font-medium">New Policy (2024)</th>
-              <th className="px-5 py-3 font-medium">Change</th>
+              <th className="px-5 py-3 font-medium">{t('diff.parameter')}</th>
+              <th className="px-5 py-3 font-medium">{t('diff.prev_policy')}</th>
+              <th className="px-5 py-3 font-medium">{t('diff.new_policy')}</th>
+              <th className="px-5 py-3 font-medium">{t('diff.change')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">

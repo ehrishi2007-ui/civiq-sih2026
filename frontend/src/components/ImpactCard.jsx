@@ -21,7 +21,7 @@ export default function ImpactCard({ impact }) {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-white/60 rounded-lg p-3 border border-indigo-50">
-            <p className="text-xs text-slate-500 mb-1">Financial Impact</p>
+            <p className="text-xs text-slate-500 mb-1">{t('impact.financial')}</p>
             <div className="flex items-end gap-2">
               <span className={clsx(
                 'text-lg font-bold',
@@ -36,7 +36,7 @@ export default function ImpactCard({ impact }) {
           </div>
           
           <div className="bg-white/60 rounded-lg p-3 border border-indigo-50">
-            <p className="text-xs text-slate-500 mb-1">Eligibility Status</p>
+            <p className="text-xs text-slate-500 mb-1">{t('impact.status')}</p>
             <p className="text-sm font-medium text-slate-900">
               {impact.status_change}
             </p>

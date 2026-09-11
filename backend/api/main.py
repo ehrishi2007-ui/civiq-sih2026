@@ -2,9 +2,9 @@
 CiviQ FastAPI Application Entrypoint.
 """
 
-from fastapi import FastAPI, Request, status
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from .config import settings
 from .routes import api_v1_router
@@ -29,6 +29,31 @@ app.add_middleware(
 
 # Mount API v1 routes (/api/v1/profile, /api/v1/match)
 app.include_router(api_v1_router)
+
+
+@app.get("/api/v1/documents/{filename}", tags=["documents"])
+async def get_document(filename: str):
+    """
+    Serves official policy PDF documents for citation verification.
+    Streams raw PDF files inline with proper content-type.
+    """
+    safe_name = filename.strip().replace("..", "").replace("/", "").replace("\\", "")
+    pdf_path = settings.RAW_PDFS_DIR / safe_name
+    if not pdf_path.exists():
+        for p in settings.RAW_PDFS_DIR.glob("*.pdf"):
+            if p.name.lower() == safe_name.lower():
+                pdf_path = p
+                break
+    if not pdf_path.exists() or not pdf_path.is_file():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Official document '{filename}' not found on server.",
+        )
+    return FileResponse(
+        path=pdf_path,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"inline; filename=\"{pdf_path.name}\""},
+    )
 
 
 @app.get("/health", response_model=HealthResponse, tags=["health"])

@@ -10,7 +10,7 @@ export default function Navbar() {
 
   const navItems = [
     { path: '/', label: t('nav.home'), icon: Home },
-    { path: '/profile', label: 'Profile', icon: User },
+    { path: '/profile', label: t('nav.profile'), icon: User },
     { path: '/dashboard', label: t('nav.dashboard'), icon: LayoutDashboard },
     { path: '/ask', label: t('nav.ask'), icon: MessageCircleQuestion },
     { path: '/myths', label: t('nav.myths'), icon: ShieldQuestion },

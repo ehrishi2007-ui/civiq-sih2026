@@ -36,7 +36,7 @@ export default function ReasoningTree({ criteria, onSelectEvidence }) {
                     className="inline-flex items-center text-xs font-medium text-civiq-600 hover:text-civiq-700 bg-civiq-50 hover:bg-civiq-100 px-2 py-0.5 rounded transition-colors"
                   >
                     <FileSearch className="w-3 h-3 mr-1" />
-                    View Evidence
+                    {t('reasoning.view_evidence')}
                   </button>
                 )}
               </div>

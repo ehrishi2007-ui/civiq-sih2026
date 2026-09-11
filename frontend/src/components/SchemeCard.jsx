@@ -14,7 +14,7 @@ export default function SchemeCard({ scheme }) {
       color: 'text-rose-700',
       bg: 'bg-rose-50',
       border: 'border-rose-300',
-      label: 'Scheme Closed (31.03.2025)',
+      label: t('scheme.closed_badge'),
     },
     eligible: {
       icon: CheckCircle,
@@ -51,7 +51,7 @@ export default function SchemeCard({ scheme }) {
           <span className={clsx('font-medium text-sm', config.color)}>{config.label}</span>
         </div>
         <div className="text-sm font-medium text-slate-500">
-          {isClosed ? 'Portal Inactive' : `${t('scheme.match_score')}: ${Math.round(scheme.score * 100)}%`}
+          {isClosed ? t('scheme.portal_inactive') : `${t('scheme.match_score')}: ${Math.round(scheme.score * 100)}%`}
         </div>
       </div>
       

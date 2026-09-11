@@ -40,13 +40,13 @@ export default function Dashboard() {
         </div>
         <h2 className="text-xl font-bold text-slate-900 mb-2">{t('dashboard.empty')}</h2>
         <p className="text-sm text-slate-600 mb-6 leading-relaxed">
-          Set up your citizen profile to see personalized scheme matches, eligibility trees, and benefit calculations.
+          {t('dashboard.empty_desc')}
         </p>
         <Link
           to="/profile"
           className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-civiq-600 rounded-lg hover:bg-civiq-700 transition-colors shadow-sm w-full"
         >
-          Complete Citizen Profile
+          {t('dashboard.complete_profile')}
         </Link>
       </div>
     );
@@ -68,7 +68,7 @@ export default function Dashboard() {
       <div className="mb-8 animate-in fade-in slide-in-from-bottom-4">
         <h1 className="text-2xl font-bold text-slate-900 mb-2">{t('dashboard.title')}</h1>
         <p className="text-slate-600">
-          Showing schemes matching profile for <span className="font-semibold text-slate-800">{profile.full_name}</span>
+          {t('dashboard.subtitle_prefix')} <span className="font-semibold text-slate-800">{profile.full_name}</span>
         </p>
       </div>
 

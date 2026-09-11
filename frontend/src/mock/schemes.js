@@ -47,7 +47,7 @@ export const mockSchemes = [
     benefit: "Margin money subsidy up to 35% on project loans up to ₹50 Lakhs",
     score: 0.88,
     eligible: true,
-    application_url: "https://www.kviconline.gov.in/pmegpeportal",
+    application_url: "https://www.myscheme.gov.in/schemes/pmegp",
     tags: ["employment", "micro-enterprise", "subsidy", "msme", "business"],
     documents_required: [
       "Aadhaar",

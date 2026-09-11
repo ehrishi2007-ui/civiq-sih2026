@@ -95,11 +95,11 @@ export default function SchemeDetail() {
                   {isClosed ? (
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-100 text-rose-800 shrink-0 font-bold text-xs">
                       <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
-                      Scheme Closed (31.03.2025)
+                      {t('scheme.closed_badge')}
                     </div>
                   ) : (
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 shrink-0">
-                      <span className="text-sm font-medium text-slate-600">Match Score:</span>
+                      <span className="text-sm font-medium text-slate-600">{t('scheme.match_score')}:</span>
                       <span className="text-sm font-bold text-slate-900">{Math.round(scheme.score * 100)}%</span>
                     </div>
                   )}
@@ -110,7 +110,7 @@ export default function SchemeDetail() {
                     <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
                     <div>
                       <h4 className="text-sm font-bold text-rose-900">
-                        Official Portal Notification: Scheme Closed on 31.03.2025
+                        Official Portal Notification: {t('scheme.closed_badge')}
                       </h4>
                       <p className="text-xs text-rose-800 mt-1 leading-relaxed">
                         Live verification on the official portal (<strong>www.standupmitra.in</strong>) confirms: <em>"Stand-Up India scheme has closed on 31.03.2025."</em> New borrower applications are no longer being accepted by partner commercial banks.
@@ -154,7 +154,7 @@ export default function SchemeDetail() {
                 {isClosed ? (
                   <>
                     <span className="text-xs font-semibold text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200">
-                      Application Portal Closed
+                      {t('scheme.portal_closed')}
                     </span>
                     <a
                       href={scheme.application_url}
@@ -162,7 +162,7 @@ export default function SchemeDetail() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-5 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors shadow-sm"
                     >
-                      Visit Official Portal (standupmitra.in)
+                      {t('scheme.visit_portal')} (standupmitra.in)
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
                   </>
@@ -183,7 +183,7 @@ export default function SchemeDetail() {
               </div>
             </div>
 
-      <h2 className="text-xl font-bold text-slate-900 mb-4">Why am I seeing this?</h2>
+      <h2 className="text-xl font-bold text-slate-900 mb-4">{t('scheme.why_seeing')}</h2>
       
       {/* Visual Eligibility Tree */}
       <ReasoningTree 
@@ -196,11 +196,11 @@ export default function SchemeDetail() {
         <div className="mt-12 mb-8">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-xl font-bold text-slate-900">
-              Policy Version Comparison ({comparison.old_version || '2023-24'} vs {comparison.new_version || '2026-27'})
+              {t('scheme.policy_comparison')} ({comparison.old_version || '2023-24'} vs {comparison.new_version || '2026-27'})
             </h2>
             <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
               <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600" />
-              Verified Guidelines
+              {t('scheme.verified_guidelines')}
             </span>
           </div>
 
@@ -218,7 +218,7 @@ export default function SchemeDetail() {
 
           {comparison.personalized_impact && (
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mt-4">
-              <h4 className="text-sm font-bold text-slate-900 mb-1">Eligibility Impact Assessment</h4>
+              <h4 className="text-sm font-bold text-slate-900 mb-1">{t('scheme.eligibility_impact')}</h4>
               <p className="text-sm text-slate-700 leading-relaxed">
                 {comparison.personalized_impact}
               </p>

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { askQuestion } from '../services/askService';
-import { Send, User, Bot, Loader2, Info, BookOpen, ChevronDown, FileText } from 'lucide-react';
+import { Send, User, Bot, Loader2, Info, BookOpen, ChevronDown, FileText, ExternalLink } from 'lucide-react';
 import clsx from 'clsx';
 
 function renderFormattedText(text) {
@@ -19,6 +19,7 @@ function renderFormattedText(text) {
 }
 
 function FormattedBotMessage({ content, sources }) {
+  const { t } = useLanguage();
   const [showSources, setShowSources] = useState(false);
   const lines = (content || '').split('\n');
 
@@ -65,31 +66,48 @@ function FormattedBotMessage({ content, sources }) {
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-civiq-700 hover:text-civiq-800 bg-civiq-50 hover:bg-civiq-100 px-2.5 py-1 rounded-md transition-colors"
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>{sources.length} Verified Document Citations</span>
+            <span>{sources.length} {t('ask.citations')}</span>
             <ChevronDown className={clsx('w-3 h-3 transition-transform', showSources && 'rotate-180')} />
           </button>
 
           {showSources && (
             <div className="mt-2 space-y-2">
-              {sources.map((src, sIdx) => (
-                <div key={sIdx} className="bg-white border border-slate-200 rounded-lg p-3 text-xs shadow-xs">
-                  <div className="flex items-center justify-between font-bold text-slate-800 mb-1">
-                    <span className="flex items-center gap-1 text-civiq-700">
-                      <FileText className="w-3.5 h-3.5" />
-                      {src.doc_name || src.document || 'Official Document'}
-                    </span>
-                    <span className="text-slate-500 font-medium">Page {src.page}</span>
+              {sources.map((src, sIdx) => {
+                const docName = src.doc_name || src.document;
+                return (
+                  <div key={sIdx} className="bg-white border border-slate-200 rounded-lg p-3 text-xs shadow-xs">
+                    <div className="flex flex-wrap items-center justify-between font-bold text-slate-800 mb-1 gap-2">
+                      <span className="flex items-center gap-1 text-civiq-700">
+                        <FileText className="w-3.5 h-3.5" />
+                        {docName || 'Official Document'}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-slate-500 font-medium">{t('common.pg')} {src.page}</span>
+                        {docName && (
+                          <a
+                            href={`http://127.0.0.1:8000/api/v1/documents/${encodeURIComponent(docName)}${src.page ? `#page=${src.page}` : ''}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-civiq-100 hover:bg-civiq-200 text-civiq-800 text-xs font-bold transition-colors shadow-2xs"
+                            title="Open official PDF"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            {t('ask.open_pdf')}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    {src.section && (
+                      <p className="text-slate-500 font-semibold mb-1">{src.section}</p>
+                    )}
+                    {src.quote && (
+                      <blockquote className="italic text-slate-600 border-l-2 border-civiq-300 pl-2 mt-1">
+                        "{src.quote}"
+                      </blockquote>
+                    )}
                   </div>
-                  {src.section && (
-                    <p className="text-slate-500 font-semibold mb-1">{src.section}</p>
-                  )}
-                  {src.quote && (
-                    <blockquote className="italic text-slate-600 border-l-2 border-civiq-300 pl-2 mt-1">
-                      "{src.quote}"
-                    </blockquote>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -103,7 +121,7 @@ export default function AskChat() {
   const [messages, setMessages] = useState([
     {
       role: 'system',
-      content: 'Hi! I am CiviQ Policy Intelligence. Ask me any question about government scheme eligibility, benefits, or official guidelines.',
+      content: t('ask.initial_message'),
       sources: []
     }
   ]);
@@ -143,7 +161,7 @@ export default function AskChat() {
         ...prev,
         {
           role: 'system',
-          content: 'Sorry, I am having trouble consulting official policy documents right now. Please verify backend connectivity.',
+          content: t('ask.error_message'),
           sources: []
         }
       ]);

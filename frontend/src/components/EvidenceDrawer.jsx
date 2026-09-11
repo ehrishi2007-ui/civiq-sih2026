@@ -1,9 +1,10 @@
-import { X, FileText, Quote } from 'lucide-react';
+import { X, FileText, Quote, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import clsx from 'clsx';
 
 export default function EvidenceDrawer({ evidence, isOpen, onClose }) {
   const { t } = useLanguage();
+  const docName = evidence?.document || evidence?.doc_name;
 
   return (
     <>
@@ -46,8 +47,19 @@ export default function EvidenceDrawer({ evidence, isOpen, onClose }) {
                 </p>
                 <div className="p-3 bg-slate-100 rounded-lg text-slate-800 text-sm font-medium flex items-start gap-2">
                   <FileText className="w-4 h-4 text-slate-500 mt-0.5" />
-                  {evidence.document}
+                  <span>{docName}</span>
                 </div>
+                {docName && (
+                  <a
+                    href={`http://127.0.0.1:8000/api/v1/documents/${encodeURIComponent(docName)}${evidence.page ? `#page=${evidence.page}` : ''}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2.5 inline-flex items-center justify-center gap-1.5 w-full px-3.5 py-2 rounded-lg bg-civiq-600 hover:bg-civiq-700 text-white text-xs font-bold shadow-xs transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    {t('evidence.view_pdf')}
+                  </a>
+                )}
               </div>
               
               <div className="flex gap-4">
@@ -56,7 +68,7 @@ export default function EvidenceDrawer({ evidence, isOpen, onClose }) {
                     {t('evidence.page')}
                   </p>
                   <div className="p-2 bg-slate-50 border rounded-lg text-slate-800 text-sm font-medium">
-                    Pg. {evidence.page}
+                    {t('common.pg')} {evidence.page}
                   </div>
                 </div>
                 <div className="flex-2">
@@ -85,7 +97,7 @@ export default function EvidenceDrawer({ evidence, isOpen, onClose }) {
           </div>
         ) : (
           <div className="p-5 flex items-center justify-center h-full text-slate-400 text-sm">
-            Select a criteria to view its evidence
+            {t('evidence.empty')}
           </div>
         )}
       </div>

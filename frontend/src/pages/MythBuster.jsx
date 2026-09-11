@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { checkMyth } from '../services/mythService';
-import { ShieldQuestion, Search, AlertTriangle, CheckCircle, XCircle, FileText, Loader2 } from 'lucide-react';
+import { ShieldQuestion, Search, AlertTriangle, CheckCircle, XCircle, FileText, Loader2, ExternalLink } from 'lucide-react';
 import { mockMythClaims } from '../mock/myths';
 import clsx from 'clsx';
 
@@ -103,7 +103,7 @@ export default function MythBuster() {
                 return <Icon className={clsx('w-8 h-8', getVerdictConfig(result.verdict).color)} />;
               })()}
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-0.5">Verdict</p>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-0.5">{t('myths.verdict')}</p>
                 <p className={clsx('text-xl font-bold', getVerdictConfig(result.verdict).color)}>
                   {result.verdict}
                 </p>
@@ -111,7 +111,7 @@ export default function MythBuster() {
             </div>
 
             <div className="p-6 bg-white">
-              <h3 className="text-lg font-bold text-slate-900 mb-3">Fact Check</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-3">{t('myths.fact_check')}</h3>
               <p className="text-slate-700 leading-relaxed mb-8">
                 {result.explanation}
               </p>
@@ -120,15 +120,29 @@ export default function MythBuster() {
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                     <FileText className="w-4 h-4 text-slate-500" />
-                    Official Sources
+                    {t('myths.official_sources')}
                   </h4>
                   <div className="space-y-3">
                     {result.sources.map((src, idx) => (
                       <div key={idx} className="bg-slate-50 rounded-lg p-4 border border-slate-100">
-                        <div className="flex items-center gap-2 mb-2 text-sm text-slate-600">
-                          <span className="font-semibold text-slate-800">{src.document}</span>
-                          <span>•</span>
-                          <span>Page {src.page}</span>
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2 text-sm text-slate-600">
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold text-slate-800">{src.document}</span>
+                            <span>•</span>
+                            <span>{t('common.pg')} {src.page}</span>
+                          </div>
+                          {src.document && (
+                            <a
+                              href={`http://127.0.0.1:8000/api/v1/documents/${encodeURIComponent(src.document)}${src.page ? `#page=${src.page}` : ''}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-civiq-100 hover:bg-civiq-200 text-civiq-800 text-xs font-bold transition-colors shadow-2xs"
+                              title="Open official PDF document"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              {t('myths.open_pdf')}
+                            </a>
+                          )}
                         </div>
                         <p className="text-sm text-slate-600 italic border-l-2 border-slate-300 pl-3">
                           "{src.quote}"
