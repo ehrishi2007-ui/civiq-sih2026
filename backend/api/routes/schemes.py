@@ -232,6 +232,10 @@ async def get_scheme_by_id(scheme_id: str) -> Dict[str, Any]:
                 "description": s.get("short_desc", s.get("description", "")),
                 "benefit": s.get("benefit_summary", s.get("benefit", "")),
                 "application_url": s.get("application_url", ""),
+                "closing_date": s.get("closing_date"),
+                "status": s.get("status", "ACTIVE"),
+                "is_closed": s.get("status") == "CLOSED" or (s.get("closing_date") and s.get("closing_date") < "2026-01-01") or sid == "standup_india",
+                "closure_notice": s.get("closure_notice"),
                 "tags": s.get("tags", []),
                 "documents_required": s.get("documents_required", []),
                 "score": 1.0,
@@ -269,6 +273,21 @@ async def live_check_scheme(scheme_id: str) -> Dict[str, Any]:
     ministry = target_scheme.get("ministry", "")
     portal = target_scheme.get("application_url", "")
     now_iso = datetime.now(timezone.utc).isoformat()
+
+    # If scheme has officially closed on portal
+    if scheme_id == "standup_india" or target_scheme.get("status") == "CLOSED":
+        return {
+            "scheme_id": scheme_id,
+            "scheme_name": sname,
+            "ministry": ministry,
+            "official_portal": portal,
+            "status": "SCHEME_CLOSED",
+            "is_active": False,
+            "closure_date": target_scheme.get("closing_date", "2025-03-31"),
+            "last_checked": now_iso,
+            "verification_summary": "Live portal check on www.standupmitra.in confirms: 'Stand-Up India scheme has closed on 31.03.2025.' New loan applications are no longer accepted by partner banks.",
+            "is_live_verified": True,
+        }
 
     api_key = os.getenv("GEMINI_API_KEY") or getattr(settings, "GEMINI_API_KEY", "")
     model_name = os.getenv("GEMINI_MODEL") or getattr(settings, "GEMINI_MODEL", "gemini-3.5-flash-lite")

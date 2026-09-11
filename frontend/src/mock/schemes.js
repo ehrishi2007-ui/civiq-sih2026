@@ -121,6 +121,10 @@ export const mockSchemes = [
     score: 0.85,
     eligible: true,
     application_url: "https://www.standupmitra.in",
+    closing_date: "2025-03-31",
+    status: "CLOSED",
+    is_closed: true,
+    closure_notice: "Stand-Up India scheme has closed on 31.03.2025 as officially notified on www.standupmitra.in.",
     tags: ["entrepreneurship", "business", "women-empowerment", "sc-st", "credit"],
     documents_required: [
       "Identity Proof (Aadhaar / Voter ID / Passport)",

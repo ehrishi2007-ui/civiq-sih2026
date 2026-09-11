@@ -6,7 +6,16 @@ import { CheckCircle, XCircle, AlertCircle, ArrowRight } from 'lucide-react';
 export default function SchemeCard({ scheme }) {
   const { t } = useLanguage();
   
+  const isClosed = scheme.is_closed || scheme.status === 'CLOSED' || (scheme.closing_date && new Date(scheme.closing_date) < new Date()) || (scheme.scheme_id === 'standup_india' || scheme.id === 'standup_india');
+
   const statusConfig = {
+    closed: {
+      icon: AlertCircle,
+      color: 'text-rose-700',
+      bg: 'bg-rose-50',
+      border: 'border-rose-300',
+      label: 'Scheme Closed (31.03.2025)',
+    },
     eligible: {
       icon: CheckCircle,
       color: 'text-emerald-600',
@@ -30,7 +39,7 @@ export default function SchemeCard({ scheme }) {
     },
   };
 
-  const status = scheme.eligible ? 'eligible' : scheme.score > 0 ? 'partial' : 'not_eligible';
+  const status = isClosed ? 'closed' : (scheme.eligible ? 'eligible' : scheme.score > 0 ? 'partial' : 'not_eligible');
   const config = statusConfig[status];
   const StatusIcon = config.icon;
 
@@ -42,7 +51,7 @@ export default function SchemeCard({ scheme }) {
           <span className={clsx('font-medium text-sm', config.color)}>{config.label}</span>
         </div>
         <div className="text-sm font-medium text-slate-500">
-          {t('scheme.match_score')}: {Math.round(scheme.score * 100)}%
+          {isClosed ? 'Portal Inactive' : `${t('scheme.match_score')}: ${Math.round(scheme.score * 100)}%`}
         </div>
       </div>
       
