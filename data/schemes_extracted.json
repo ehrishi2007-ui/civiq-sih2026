@@ -1,1 +1,145 @@
-[]
+[
+  {
+    "id": "pm_scholarship_warb",
+    "name": "Prime Minister's Scholarship Scheme (WARB)",
+    "ministry": "Ministry of Home Affairs",
+    "short_desc": "Financial assistance for higher technical and professional education.",
+    "benefit_summary": "₹36,000/year for girls, ₹30,000/year for boys",
+    "application_url": "https://scholarships.gov.in",
+    "closing_date": "2026-11-15",
+    "version_year": 2024,
+    "criteria": [
+      {
+        "id": "crit_student",
+        "label": "Education Status",
+        "field": "occupation",
+        "operator": "==",
+        "expected_value": "Student",
+        "citation": {
+          "doc_name": "PMSS Guidelines 2024-25",
+          "page": 3,
+          "section": "Clause 2.1",
+          "quote": "Scholarship is available only for students admitted to professional degree courses."
+        }
+      },
+      {
+        "id": "crit_income",
+        "label": "Family Income Limit",
+        "field": "annual_income",
+        "operator": "<=",
+        "expected_value": 800000,
+        "citation": {
+          "doc_name": "PMSS Guidelines 2024-25",
+          "page": 11,
+          "section": "Clause 4.2",
+          "quote": "The annual family income limit from all sources shall not exceed ₹8,00,000 per annum."
+        }
+      },
+      {
+        "id": "crit_marks",
+        "label": "Minimum Qualification Marks (12th/MEQ)",
+        "field": "marks_percentage",
+        "operator": ">=",
+        "expected_value": 60,
+        "citation": {
+          "doc_name": "PMSS Guidelines 2024-25",
+          "page": 5,
+          "section": "Clause 3.4",
+          "quote": "Minimum 60% marks in Minimum Educational Qualification (MEQ) i.e. 10+2/Diploma."
+        }
+      }
+    ],
+    "policy_diff": {
+      "previous_version": "2022-23",
+      "current_version": "2024-25",
+      "changes": [
+        {
+          "parameter": "Stipend (Girls)",
+          "old_value": "₹3,000 / month",
+          "new_value": "₹3,600 / month",
+          "impact_tag": "+₹600/month Increased Assistance"
+        },
+        {
+          "parameter": "Annual Income Cap",
+          "old_value": "₹6,00,000 / annum",
+          "new_value": "₹8,00,000 / annum",
+          "impact_tag": "Eligibility Relaxed (+₹2 Lakhs)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "pm_kisan",
+    "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "short_desc": "Direct income support of ₹6,000 per year to landholding farmer families.",
+    "benefit_summary": "₹6,000/year in 3 equal installments of ₹2,000",
+    "application_url": "https://pmkisan.gov.in",
+    "closing_date": "2026-12-31",
+    "version_year": 2024,
+    "criteria": [
+      {
+        "id": "crit_farmer",
+        "label": "Primary Occupation",
+        "field": "occupation",
+        "operator": "==",
+        "expected_value": "Farmer",
+        "citation": {
+          "doc_name": "PM-KISAN Guidelines",
+          "page": 2,
+          "section": "Clause 1.2",
+          "quote": "All landholding farmer families with cultivable landholding in their names are eligible."
+        }
+      }
+    ],
+    "policy_diff": {
+      "previous_version": "2021",
+      "current_version": "2024",
+      "changes": [
+        {
+          "parameter": "e-KYC Requirement",
+          "old_value": "Optional",
+          "new_value": "Mandatory Aadhaar e-KYC",
+          "impact_tag": "Security Upgrade"
+        }
+      ]
+    }
+  },
+  {
+    "id": "pmegp",
+    "name": "Prime Minister Employment Generation Programme (PMEGP)",
+    "ministry": "Ministry of MSME",
+    "short_desc": "Credit-linked subsidy programme to generate self-employment micro-enterprises.",
+    "benefit_summary": "Up to 35% government subsidy on loans up to ₹50 Lakhs",
+    "application_url": "https://www.kviconline.gov.in/pmegpeportal",
+    "closing_date": "2026-10-31",
+    "version_year": 2024,
+    "criteria": [
+      {
+        "id": "crit_age",
+        "label": "Minimum Age (18+)",
+        "field": "age",
+        "operator": ">=",
+        "expected_value": 18,
+        "citation": {
+          "doc_name": "PMEGP Scheme Guidelines",
+          "page": 4,
+          "section": "Clause 3.1",
+          "quote": "Any individual above 18 years of age is eligible to apply for PMEGP financial assistance."
+        }
+      }
+    ],
+    "policy_diff": {
+      "previous_version": "2020",
+      "current_version": "2024",
+      "changes": [
+        {
+          "parameter": "Max Project Cost (Manufacturing)",
+          "old_value": "₹25 Lakhs",
+          "new_value": "₹50 Lakhs",
+          "impact_tag": "Doubled Project Limit"
+        }
+      ]
+    }
+  }
+]

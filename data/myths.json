@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "myth_01",
+    "claim_keywords": ["modi 50000", "50000 farmers", "pm 50000 cash", "50k scheme", "modi 50k"],
+    "verdict": "FAKE",
+    "warning": "No government scheme exists providing ₹50,000 direct cash transfers to all citizens or farmers. Beware of phishing links.",
+    "real_scheme_id": "pm_kisan",
+    "real_scheme_name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "real_facts": "The legitimate PM-KISAN scheme provides ₹6,000 per year in three equal installments of ₹2,000 to eligible landholding farmers.",
+    "citation": "PM-KISAN Operational Guidelines, Ministry of Agriculture, Page 2"
+  },
+  {
+    "id": "myth_02",
+    "claim_keywords": ["free laptop", "modi laptop", "free tablet scheme 2026"],
+    "verdict": "FAKE",
+    "warning": "Central Government is not running any direct nationwide 'Free Laptop 2026' registration link on WhatsApp.",
+    "real_scheme_id": "pm_scholarship_warb",
+    "real_scheme_name": "Prime Minister's Scholarship Scheme (WARB)",
+    "real_facts": "Legitimate educational assistance is provided via Direct Benefit Transfer (DBT) scholarships through the official National Scholarship Portal (scholarships.gov.in).",
+    "citation": "PIB Fact Check & Ministry of Electronics & IT Advisory"
+  }
+]

@@ -13,7 +13,7 @@ load_dotenv()
 
 # Configure Gemini once at module load
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-_model = genai.GenerativeModel("gemini-1.5-flash")
+_model = genai.GenerativeModel("gemini-2.5-flash")
 
 # ── In-memory cache ────────────────────────────────────────────────────────────
 # Key format: "{target_lang}:{original_text}"  →  translated string
