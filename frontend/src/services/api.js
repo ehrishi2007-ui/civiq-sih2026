@@ -5,7 +5,12 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 async function request(endpoint, options = {}) {
   // Use mock API if no backend URL is configured
   if (!API_BASE_URL || API_BASE_URL.trim() === '') {
-    return mockApi[endpoint.replace(/^\/api\/v1\//, '')](options);
+    const cleanPath = endpoint.replace(/^\/api\/v1\//, '');
+    if (cleanPath.startsWith('schemes/')) {
+      const id = cleanPath.split('/')[1];
+      return mockApi['schemes']({ ...options, id });
+    }
+    return mockApi[cleanPath](options);
   }
 
   const url = `${API_BASE_URL}${endpoint}`;

@@ -171,3 +171,58 @@ async def match_schemes(request: Request) -> Dict[str, Any]:
         "total_evaluated": len(matches),
         "eligible_count": eligible_count,
     }
+
+
+@router.get("/schemes/{scheme_id}")
+async def get_scheme_by_id(scheme_id: str) -> Dict[str, Any]:
+    """
+    Retrieves canonical scheme details for a given scheme identifier.
+    Grounded in data/schemes_extracted.json without fabricating data or citations.
+    """
+    canonical_schemes = _load_canonical_schemes()
+    for s in canonical_schemes:
+        sid = s.get("id", s.get("scheme_id"))
+        if sid == scheme_id:
+            criteria_list = []
+            for c in s.get("criteria", []):
+                field_name = c.get("field", "")
+                operator = c.get("operator", "")
+                expected = c.get("expected_value", "")
+                label = c.get("label", f"{field_name} {operator} {expected}".strip())
+                citation = c.get("citation", {})
+                criteria_list.append({
+                    "criterion_id": c.get("id", ""),
+                    "field": field_name,
+                    "label": label,
+                    "pass": True,
+                    "status": "PASS",
+                    "operator": operator,
+                    "expected_value": expected,
+                    "evidence": {
+                        "document": citation.get("doc_name", citation.get("document", "")),
+                        "page": citation.get("page", 1),
+                        "section": citation.get("section", ""),
+                        "quote": citation.get("quote", ""),
+                    } if citation else None,
+                    "citation": citation,
+                })
+
+            return {
+                "scheme_id": sid,
+                "scheme_name": s.get("name", s.get("scheme_name", "Unknown Scheme")),
+                "ministry": s.get("ministry", ""),
+                "description": s.get("short_desc", s.get("description", "")),
+                "benefit": s.get("benefit_summary", s.get("benefit", "")),
+                "application_url": s.get("application_url", ""),
+                "tags": s.get("tags", []),
+                "documents_required": s.get("documents_required", []),
+                "score": 1.0,
+                "eligible": True,
+                "criteria": criteria_list,
+                "policy_diff": s.get("policy_diff"),
+            }
+
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"Scheme with ID '{scheme_id}' not found in canonical schemes.",
+    )

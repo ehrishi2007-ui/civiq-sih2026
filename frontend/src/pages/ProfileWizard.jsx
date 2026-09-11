@@ -30,7 +30,19 @@ export default function ProfileWizard() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await saveProfile(localProfile);
+      const sanitizedProfile = {
+        ...localProfile,
+        age: parseInt(localProfile.age, 10) || 0,
+        annual_income: parseFloat(localProfile.annual_income) || 0.0,
+        land_acres: localProfile.has_land ? (parseFloat(localProfile.land_acres) || 0.0) : 0.0,
+        has_land: Boolean(localProfile.has_land),
+        has_bpl_card: Boolean(localProfile.has_bpl_card),
+        is_rural: Boolean(localProfile.is_rural),
+        disability: Boolean(localProfile.disability),
+        minority: Boolean(localProfile.minority),
+      };
+      await saveProfile(sanitizedProfile);
+      dispatch({ type: 'SET_PROFILE', payload: sanitizedProfile });
       navigate('/dashboard');
     } catch (error) {
       console.error('Failed to save profile:', error);

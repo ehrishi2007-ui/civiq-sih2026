@@ -284,3 +284,23 @@ def test_direct_profile_payload():
     assert data["total_evaluated"] >= 3
     assert "matches" in data
     assert len(data["matches"]) == data["total_evaluated"]
+
+
+# =====================================================================
+# 12. GET /api/v1/schemes/{scheme_id}
+# =====================================================================
+def test_get_scheme_by_id_success():
+    response = client.get("/api/v1/schemes/pm_kisan")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["scheme_id"] == "pm_kisan"
+    assert "PM-KISAN" in data["scheme_name"]
+    assert len(data["criteria"]) >= 1
+    assert data["criteria"][0]["evidence"]["document"] == "PM-KISAN.pdf"
+
+
+def test_get_scheme_by_id_not_found():
+    response = client.get("/api/v1/schemes/non_existent_scheme")
+    assert response.status_code == 404
+    data = response.json()
+    assert "not found" in data["detail"].lower()
