@@ -56,7 +56,7 @@ def ask_policy(question: str) -> dict:
             "success": True,
             "answer": response.text,
             "documents_consulted": len(files),
-            "model": "gemini-2.5-flash"
+            "model": "gemini-3.6-flash"
         }
     except Exception as e:
         return {
