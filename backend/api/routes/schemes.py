@@ -30,24 +30,39 @@ router = APIRouter(tags=["schemes"])
 
 
 def _load_canonical_schemes() -> List[Dict[str, Any]]:
-    """Loads schemes from Supabase if connected, or falls back to canonical extracted JSON file."""
+    """Loads schemes from canonical extracted JSON file and enriches with Supabase if connected."""
+    schemes_map: Dict[str, Dict[str, Any]] = {}
+    if settings.SCHEMES_FILE.exists():
+        try:
+            with open(settings.SCHEMES_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    for s in data:
+                        sid = s.get("id", s.get("scheme_id"))
+                        if sid:
+                            schemes_map[sid] = dict(s)
+        except Exception:
+            pass
+
     client = get_client()
     if client:
         try:
             res = client.table("schemes").select("*").execute()
             if res.data and len(res.data) > 0:
-                return res.data
+                for db_s in res.data:
+                    sid = db_s.get("id", db_s.get("scheme_id"))
+                    if sid in schemes_map:
+                        for k, v in db_s.items():
+                            if v is not None and v != "":
+                                if isinstance(v, str):
+                                    v = v.replace("â‚¹", "₹").replace("\u00e2\u201a\u00b9", "₹")
+                                schemes_map[sid][k] = v
+                    else:
+                        schemes_map[sid] = dict(db_s)
         except Exception:
             pass
 
-    if not settings.SCHEMES_FILE.exists():
-        return []
-    try:
-        with open(settings.SCHEMES_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            return data if isinstance(data, list) else []
-    except Exception:
-        return []
+    return list(schemes_map.values())
 
 
 @router.post("/match")
@@ -169,8 +184,8 @@ async def match_schemes(request: Request) -> Dict[str, Any]:
             "description": scheme.get("short_desc", scheme.get("description", "")),
             "benefit": scheme.get("benefit_summary", scheme.get("benefit", "")),
             "application_url": scheme.get("application_url", ""),
-            "tags": scheme.get("tags", []),
-            "documents_required": scheme.get("documents_required", []),
+            "tags": scheme.get("tags") or [],
+            "documents_required": scheme.get("documents_required") or [],
             "overall_status": eval_res.overall_status,
             "eligible": (eval_res.overall_status == "ELIGIBLE"),
             "score": score,
@@ -236,8 +251,8 @@ async def get_scheme_by_id(scheme_id: str) -> Dict[str, Any]:
                 "status": "CLOSED" if (s.get("status") == "CLOSED" or sid == "standup_india") else s.get("status", "ACTIVE"),
                 "is_closed": s.get("status") == "CLOSED" or (s.get("closing_date") and s.get("closing_date") < "2026-01-01") or sid == "standup_india",
                 "closure_notice": s.get("closure_notice", "Stand-Up India scheme has closed on 31.03.2025 as officially notified on www.standupmitra.in." if sid == "standup_india" else None),
-                "tags": s.get("tags", []),
-                "documents_required": s.get("documents_required", []),
+                "tags": s.get("tags") or [],
+                "documents_required": s.get("documents_required") or [],
                 "score": 1.0,
                 "eligible": True,
                 "criteria": criteria_list,

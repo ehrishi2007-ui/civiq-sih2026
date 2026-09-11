@@ -25,21 +25,45 @@ const defaultProfile = {
   documents: [],
 };
 
+function getSavedProfile() {
+  try {
+    const saved = localStorage.getItem('civiq_user_profile');
+    if (saved) return JSON.parse(saved);
+  } catch (e) {
+    console.error('Failed to load profile from localStorage:', e);
+  }
+  return null;
+}
+
 function profileReducer(state, action) {
+  let nextState = state;
   switch (action.type) {
     case 'SET_PROFILE':
-      return { ...action.payload };
+      nextState = { ...action.payload };
+      break;
     case 'UPDATE_FIELD':
-      return { ...(state || defaultProfile), [action.field]: action.value };
+      nextState = { ...(state || defaultProfile), [action.field]: action.value };
+      break;
     case 'CLEAR_PROFILE':
-      return null;
+      nextState = null;
+      break;
     default:
       return state;
   }
+  try {
+    if (nextState) {
+      localStorage.setItem('civiq_user_profile', JSON.stringify(nextState));
+    } else {
+      localStorage.removeItem('civiq_user_profile');
+    }
+  } catch (e) {
+    console.error('Failed to save profile to localStorage:', e);
+  }
+  return nextState;
 }
 
 export function ProfileProvider({ children }) {
-  const [profile, dispatch] = useReducer(profileReducer, null);
+  const [profile, dispatch] = useReducer(profileReducer, null, getSavedProfile);
 
   return (
     <ProfileContext.Provider value={{ profile, dispatch }}>

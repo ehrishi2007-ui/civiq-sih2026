@@ -4,7 +4,22 @@ import translations from '../mock/translations';
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguageState] = useState(() => {
+    try {
+      return localStorage.getItem('civiq_language') || 'en';
+    } catch {
+      return 'en';
+    }
+  });
+
+  const setLanguage = useCallback((lang) => {
+    setLanguageState(lang);
+    try {
+      localStorage.setItem('civiq_language', lang);
+    } catch (e) {
+      console.error('Failed to save language to localStorage:', e);
+    }
+  }, []);
 
   const t = useCallback(
     (key) => {

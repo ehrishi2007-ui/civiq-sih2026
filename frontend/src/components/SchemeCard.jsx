@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { useLanguage } from '../context/LanguageContext';
 import { CheckCircle, XCircle, AlertCircle, ArrowRight } from 'lucide-react';
+import { getLocalizedScheme } from '../mock/schemeTranslations';
 
-export default function SchemeCard({ scheme }) {
-  const { t } = useLanguage();
+export default function SchemeCard({ scheme: rawScheme }) {
+  const { t, language } = useLanguage();
+  const scheme = getLocalizedScheme(rawScheme, language);
   
   const isClosed = scheme.is_closed || scheme.status === 'CLOSED' || (scheme.closing_date && new Date(scheme.closing_date) < new Date()) || (scheme.scheme_id === 'standup_india' || scheme.id === 'standup_india');
 
