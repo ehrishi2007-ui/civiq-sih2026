@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-import { Home, LayoutDashboard, MessageCircleQuestion, ShieldQuestion } from 'lucide-react';
+import { Home, User, LayoutDashboard, MessageCircleQuestion, ShieldQuestion } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import LanguageSelector from './LanguageSelector';
 
@@ -10,6 +10,7 @@ export default function Navbar() {
 
   const navItems = [
     { path: '/', label: t('nav.home'), icon: Home },
+    { path: '/profile', label: 'Profile', icon: User },
     { path: '/dashboard', label: t('nav.dashboard'), icon: LayoutDashboard },
     { path: '/ask', label: t('nav.ask'), icon: MessageCircleQuestion },
     { path: '/myths', label: t('nav.myths'), icon: ShieldQuestion },

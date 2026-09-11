@@ -75,7 +75,7 @@ export default function SchemeCard({ scheme }) {
         </div>
 
         <Link
-          to={`/scheme/${scheme.scheme_id}`}
+          to={`/scheme/${scheme.scheme_id || scheme.id}`}
           className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-civiq-600 rounded-lg hover:bg-civiq-700 transition-colors"
         >
           {t('scheme.view_details')}

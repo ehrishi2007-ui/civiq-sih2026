@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useProfile } from '../context/ProfileContext';
 import { getEligibleSchemes } from '../services/schemeService';
@@ -33,11 +34,20 @@ export default function Dashboard() {
 
   if (!profile) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[50vh] px-4">
-        <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-          <LayoutGrid className="w-8 h-8 text-slate-400" />
+      <div className="max-w-md mx-auto my-16 p-8 bg-white rounded-2xl shadow-sm border border-slate-200 text-center animate-in fade-in slide-in-from-bottom-4">
+        <div className="w-16 h-16 bg-civiq-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <LayoutGrid className="w-8 h-8 text-civiq-600" />
         </div>
-        <p className="text-lg text-slate-600 font-medium">{t('dashboard.empty')}</p>
+        <h2 className="text-xl font-bold text-slate-900 mb-2">{t('dashboard.empty')}</h2>
+        <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+          Set up your citizen profile to see personalized scheme matches, eligibility trees, and benefit calculations.
+        </p>
+        <Link
+          to="/profile"
+          className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-civiq-600 rounded-lg hover:bg-civiq-700 transition-colors shadow-sm w-full"
+        >
+          Complete Citizen Profile
+        </Link>
       </div>
     );
   }

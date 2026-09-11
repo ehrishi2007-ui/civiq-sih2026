@@ -302,6 +302,19 @@
           "section": "Clause A.10: GOI APY Guidelines",
           "quote": "Adhere to any notification issued by Government of India on APY, including maximum entry age of 40 years."
         }
+      },
+      {
+        "id": "crit_apy_occupation",
+        "label": "Unorganized Sector Worker (Not Full-Time Student)",
+        "field": "occupation",
+        "operator": "!=",
+        "expected_value": "Student",
+        "citation": {
+          "doc_name": "APY.pdf",
+          "page": 1,
+          "section": "Clause 1: Target Beneficiaries",
+          "quote": "APY is focused on all citizens in the unorganized sector who are not covered under statutory social security schemes."
+        }
       }
     ],
     "policy_diff": null

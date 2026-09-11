@@ -1,254 +1,203 @@
 export const mockSchemes = [
   {
     scheme_id: 'pm_kisan',
-    scheme_name: 'PM-KISAN Samman Nidhi',
-    ministry: 'Ministry of Agriculture & Farmers Welfare',
+    scheme_name: "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+    ministry: "Ministry of Agriculture & Farmers' Welfare",
     description:
-      'Income support of ₹6,000/year to small and marginal farmer families, paid in three equal installments of ₹2,000 each.',
-    benefit: '₹6,000/year',
+      "Income support of ₹6,000 per year to all landholding farmer families across the country, released in three 4-monthly installments of ₹2,000 each via DBT.",
+    benefit: "₹6,000/year via DBT",
     score: 0.92,
     eligible: true,
-    application_url: 'https://pmkisan.gov.in',
-    tags: ['agriculture', 'income-support', 'central'],
-    documents_required: ['Aadhaar', 'Land Record', 'Bank Passbook'],
+    application_url: "https://pmkisan.gov.in",
+    tags: ["agriculture", "income-support", "central-sector", "farmer"],
+    documents_required: ["Aadhaar", "Land Record / RoR", "Bank Account Details"],
     criteria: [
       {
-        field: 'age',
-        label: 'Age ≥ 18',
+        field: "has_land",
+        label: "Landholding Farmer Family",
         pass: true,
         evidence: {
-          document: 'PM-KISAN Guidelines 2024.pdf',
-          page: 4,
-          section: 'Eligibility Criteria',
+          document: "PM-KISAN.pdf",
+          page: 2,
+          section: "Clause 3: Definition of farmer's family",
           quote:
-            "All land-holding farmers' families with cultivable land are eligible, provided the applicant is 18 years or older.",
+            "A landholder farmer's family is defined as 'a family comprising of husband, wife and minor children who owns cultivable land as per land records of the concerned State/UT'.",
         },
       },
       {
-        field: 'has_land',
-        label: 'Must be a land-holding farmer',
+        field: "occupation",
+        label: "Primary Occupation: Farmer",
         pass: true,
         evidence: {
-          document: 'PM-KISAN Guidelines 2024.pdf',
-          page: 4,
-          section: 'Eligibility Criteria',
+          document: "PM-KISAN.pdf",
+          page: 2,
+          section: "Clause 1: Scheme",
           quote:
-            'The scheme is applicable to all farmer families who hold cultivable land as per the land records of the respective State or UT.',
-        },
-      },
-      {
-        field: 'annual_income',
-        label: 'Annual income ≤ ₹2,00,000',
-        pass: true,
-        evidence: {
-          document: 'PM-KISAN Guidelines 2024.pdf',
-          page: 5,
-          section: 'Income Criteria',
-          quote:
-            'Farmer families with total annual income up to ₹2,00,000 from all sources are eligible for the benefit.',
-        },
-      },
-      {
-        field: 'occupation',
-        label: 'Occupation: Farmer',
-        pass: true,
-        evidence: {
-          document: 'PM-KISAN Guidelines 2024.pdf',
-          page: 3,
-          section: 'Definitions',
-          quote:
-            'A farmer is defined as an individual who owns cultivable land and is engaged in agricultural activities.',
+            "With a view to provide income support to all landholding farmers' families in the country, having cultivable land, the Central Government has implemented a Central Sector Scheme, namely, 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)'.",
         },
       },
     ],
   },
   {
-    scheme_id: 'pm_awas',
-    scheme_name: 'PM Awas Yojana (Gramin)',
-    ministry: 'Ministry of Rural Development',
+    scheme_id: "pmegp",
+    scheme_name: "Prime Minister's Employment Generation Programme (PMEGP)",
+    ministry: "Ministry of Micro, Small and Medium Enterprises (MSME)",
     description:
-      'Financial assistance for construction of pucca houses to eligible rural households who are houseless or living in kutcha/dilapidated houses.',
-    benefit: '₹1,20,000 (plain areas)',
-    score: 0.85,
-    eligible: true,
-    application_url: 'https://pmayg.nic.in',
-    tags: ['housing', 'rural', 'central'],
-    documents_required: ['Aadhaar', 'BPL Certificate', 'Income Certificate'],
-    criteria: [
-      {
-        field: 'is_rural',
-        label: 'Resident of rural area',
-        pass: true,
-        evidence: {
-          document: 'PMAY-G Guidelines 2024.pdf',
-          page: 8,
-          section: 'Target Beneficiaries',
-          quote:
-            'The scheme targets rural households who are houseless or living in houses with kutcha walls and kutcha roof.',
-        },
-      },
-      {
-        field: 'has_bpl_card',
-        label: 'BPL category household',
-        pass: true,
-        evidence: {
-          document: 'PMAY-G Guidelines 2024.pdf',
-          page: 9,
-          section: 'Selection Criteria',
-          quote:
-            'Priority is given to households identified under the Socio-Economic Caste Census (SECC) data and BPL list.',
-        },
-      },
-      {
-        field: 'annual_income',
-        label: 'Annual income ≤ ₹3,00,000',
-        pass: true,
-        evidence: {
-          document: 'PMAY-G Guidelines 2024.pdf',
-          page: 10,
-          section: 'Income Eligibility',
-          quote:
-            'Households with annual income not exceeding ₹3,00,000 in rural areas are eligible under the scheme.',
-        },
-      },
-    ],
-  },
-  {
-    scheme_id: 'ayushman_bharat',
-    scheme_name: 'Ayushman Bharat PM-JAY',
-    ministry: 'Ministry of Health & Family Welfare',
-    description:
-      'Health insurance coverage of up to ₹5 lakh per family per year for secondary and tertiary care hospitalization to identified vulnerable families.',
-    benefit: '₹5,00,000/year health cover',
-    score: 0.78,
-    eligible: true,
-    application_url: 'https://pmjay.gov.in',
-    tags: ['health', 'insurance', 'central'],
-    documents_required: ['Aadhaar', 'Ration Card', 'Income Certificate'],
-    criteria: [
-      {
-        field: 'ration_card_type',
-        label: 'PHH/AAY ration card holder',
-        pass: true,
-        evidence: {
-          document: 'AB-PMJAY Operational Guidelines 2024.pdf',
-          page: 12,
-          section: 'Beneficiary Identification',
-          quote:
-            'Families identified through SECC 2011 data and holding PHH or AAY ration cards are automatically eligible.',
-        },
-      },
-      {
-        field: 'annual_income',
-        label: 'Annual income ≤ ₹5,00,000',
-        pass: true,
-        evidence: {
-          document: 'AB-PMJAY Operational Guidelines 2024.pdf',
-          page: 14,
-          section: 'Economic Criteria',
-          quote:
-            'The scheme covers families with annual income up to ₹5,00,000 as per the deprivation criteria.',
-        },
-      },
-    ],
-  },
-  {
-    scheme_id: 'sc_scholarship',
-    scheme_name: 'Post-Matric Scholarship for SC Students',
-    ministry: 'Ministry of Social Justice & Empowerment',
-    description:
-      'Financial assistance to Scheduled Caste students studying at post-matriculation or post-secondary stage to enable them to complete their education.',
-    benefit: 'Full tuition + ₹1,200/month stipend',
-    score: 0.35,
-    eligible: false,
-    application_url: 'https://scholarships.gov.in',
-    tags: ['education', 'scholarship', 'SC', 'central'],
-    documents_required: ['Aadhaar', 'Caste Certificate', 'Income Certificate', 'Marksheet'],
-    criteria: [
-      {
-        field: 'category',
-        label: 'Must belong to Scheduled Caste (SC)',
-        pass: false,
-        evidence: {
-          document: 'Post-Matric Scholarship SC Guidelines 2024.pdf',
-          page: 3,
-          section: 'Eligibility',
-          quote:
-            'The scholarship is exclusively for students belonging to Scheduled Castes as notified by the Government of India.',
-        },
-      },
-      {
-        field: 'education',
-        label: 'Studying post-matriculation',
-        pass: true,
-        evidence: {
-          document: 'Post-Matric Scholarship SC Guidelines 2024.pdf',
-          page: 4,
-          section: 'Educational Qualification',
-          quote:
-            'Students who have passed the matriculation examination and are pursuing higher education are eligible.',
-        },
-      },
-      {
-        field: 'annual_income',
-        label: 'Family income ≤ ₹2,50,000',
-        pass: true,
-        evidence: {
-          document: 'Post-Matric Scholarship SC Guidelines 2024.pdf',
-          page: 5,
-          section: 'Income Ceiling',
-          quote: 'The annual family income from all sources should not exceed ₹2,50,000.',
-        },
-      },
-    ],
-  },
-  {
-    scheme_id: 'ujjwala',
-    scheme_name: 'PM Ujjwala Yojana 2.0',
-    ministry: 'Ministry of Petroleum & Natural Gas',
-    description:
-      'Free LPG connections to women from Below Poverty Line (BPL) households to replace unclean cooking fuels with clean LPG.',
-    benefit: 'Free LPG connection + first refill',
+      "Credit-linked subsidy programme to generate self-employment micro-enterprises in non-farm sector.",
+    benefit: "Margin money subsidy up to 35% on project loans up to ₹50 Lakhs",
     score: 0.88,
     eligible: true,
-    application_url: 'https://pmuy.gov.in',
-    tags: ['energy', 'LPG', 'women', 'central'],
-    documents_required: ['Aadhaar', 'BPL Certificate', 'Bank Account'],
+    application_url: "https://www.kviconline.gov.in/pmegpeportal",
+    tags: ["employment", "micro-enterprise", "subsidy", "msme", "business"],
+    documents_required: [
+      "Aadhaar",
+      "Project Report",
+      "Education Certificate (VIII pass for >10L Mfg)",
+      "Bank Account Details",
+    ],
     criteria: [
       {
-        field: 'is_rural',
-        label: 'Rural household',
+        field: "age",
+        label: "Age ≥ 18 Years",
         pass: true,
         evidence: {
-          document: 'PMUY 2.0 Guidelines 2024.pdf',
-          page: 6,
-          section: 'Target Group',
-          quote:
-            'The scheme primarily targets women from BPL households in rural and semi-urban areas.',
+          document: "PMEGP.pdf",
+          page: 5,
+          section: "Section 4.1: For PMEGP new enterprises (Units), Clause (i)",
+          quote: "Any individual, above 18 years of age",
+        },
+      },
+    ],
+  },
+  {
+    scheme_id: "pm_scholarship_warb",
+    scheme_name: "Prime Minister's Scholarship Scheme (WARB)",
+    ministry: "Ministry of Home Affairs",
+    description:
+      "Scholarship to encourage higher technical and professional education for dependent wards & widows of CAPFs, Assam Rifles, and State Police Personnel.",
+    benefit: "₹3,000/mo (Girls) / ₹2,500/mo (Boys)",
+    score: 0.95,
+    eligible: true,
+    application_url: "https://scholarships.gov.in",
+    tags: ["education", "scholarship", "capf", "higher-education"],
+    documents_required: [
+      "Aadhaar",
+      "CAPF Wards Certificate / Discharge Book",
+      "MEQ Marksheet (Min 60%)",
+      "Bank Account Details",
+    ],
+    criteria: [
+      {
+        field: "marks_percentage",
+        label: "Minimum Educational Qualification (MEQ) Marks ≥ 60%",
+        pass: true,
+        evidence: {
+          document: "PMSS 2023-24.pdf",
+          page: 2,
+          section: "Clause 3: Minimum Educational Qualification (MEQ)",
+          quote: "MEQ for entry into technical courses: Minimum 60% marks in MEQ.",
         },
       },
       {
-        field: 'has_bpl_card',
-        label: 'Below Poverty Line household',
+        field: "annual_income",
+        label: "Annual Family Income ≤ ₹6,00,000 (Base Policy)",
         pass: true,
         evidence: {
-          document: 'PMUY 2.0 Guidelines 2024.pdf',
-          page: 7,
-          section: 'Eligibility Criteria',
-          quote:
-            'Applicant must belong to a BPL household as identified under the SECC 2011 data.',
+          document: "PMSS 2023-24.pdf",
+          page: 3,
+          section: "Clause 3(A): Eligibility — Family Income",
+          quote: "Family income of the beneficiary from all sources should not exceed Rs. 6.00 Lakh per annum.",
+        },
+      },
+    ],
+  },
+  {
+    scheme_id: "standup_india",
+    scheme_name: "Stand-Up India Scheme",
+    ministry: "Ministry of Finance",
+    description:
+      "Bank loans between ₹10 Lakhs and ₹1 Crore to at least one SC/ST borrower and at least one woman borrower per bank branch for setting up greenfield enterprises.",
+    benefit: "Composite loan between ₹10 Lakhs and ₹1 Crore",
+    score: 0.85,
+    eligible: true,
+    application_url: "https://www.standupmitra.in",
+    tags: ["entrepreneurship", "business", "women-empowerment", "sc-st", "credit"],
+    documents_required: [
+      "Identity Proof (Aadhaar / Voter ID / Passport)",
+      "Proof of Category (SC/ST Certificate or Female Gender)",
+      "Project Report (Business Plan)",
+      "Bank Account Statements",
+    ],
+    criteria: [
+      {
+        field: "age",
+        label: "Borrower Age ≥ 18 Years",
+        pass: true,
+        evidence: {
+          document: "StandupIndia.pdf",
+          page: 3,
+          section: "Clause 1: Eligibility",
+          quote: "SC/ST and/or women entrepreneurs, above 18 years of age.",
         },
       },
       {
-        field: 'gender',
-        label: 'Adult woman in household',
+        field: "gender",
+        label: "Target Beneficiary: Woman or SC/ST Entrepreneur",
         pass: true,
         evidence: {
-          document: 'PMUY 2.0 Guidelines 2024.pdf',
-          page: 7,
-          section: 'Applicant Requirements',
+          document: "StandupIndia.pdf",
+          page: 3,
+          section: "Clause 1: Objective",
           quote:
-            'The LPG connection is issued in the name of an adult woman member of the eligible BPL household.',
+            "The objective of the Stand Up India scheme is to facilitate bank loans between 10 lakh and 1 Crore to at least one Scheduled Caste (SC) or Scheduled Tribe (ST) borrower and at least one woman borrower per bank branch for setting up a greenfield enterprise.",
+        },
+      },
+    ],
+  },
+  {
+    scheme_id: "apy",
+    scheme_name: "Atal Pension Yojana (APY)",
+    ministry: "Ministry of Finance",
+    description:
+      "Guaranteed minimum monthly pension of ₹1,000 to ₹5,000 to unorganized sector workers after age 60.",
+    benefit: "Monthly pension of ₹1,000 to ₹5,000 based on contribution",
+    score: 0.70,
+    eligible: false,
+    application_url: "https://www.npscra.nsdl.co.in",
+    tags: ["pension", "social-security", "financial-inclusion", "senior-citizen"],
+    documents_required: ["Aadhaar Card", "Active Savings Bank Account", "Mobile Number"],
+    criteria: [
+      {
+        field: "age",
+        label: "Entry Age ≥ 18 Years",
+        pass: true,
+        evidence: {
+          document: "APY.pdf",
+          page: 3,
+          section: "Clause A.10: GOI APY Guidelines",
+          quote: "Adhere to any notification issued by Government of India on APY, including minimum entry age of 18 years.",
+        },
+      },
+      {
+        field: "age",
+        label: "Entry Age ≤ 40 Years",
+        pass: true,
+        evidence: {
+          document: "APY.pdf",
+          page: 3,
+          section: "Clause A.10: GOI APY Guidelines",
+          quote: "Adhere to any notification issued by Government of India on APY, including maximum entry age of 40 years.",
+        },
+      },
+      {
+        field: "occupation",
+        label: "Unorganized Sector Worker (Not Full-Time Student)",
+        pass: false,
+        evidence: {
+          document: "APY.pdf",
+          page: 1,
+          section: "Clause 1: Target Beneficiaries",
+          quote: "APY is focused on all citizens in the unorganized sector who are not covered under statutory social security schemes.",
         },
       },
     ],
