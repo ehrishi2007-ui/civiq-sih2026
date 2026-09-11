@@ -138,6 +138,70 @@
         }
       }
     ],
-    "policy_diff": null
+    "policy_diff": {
+      "previous_version": "2023-24",
+      "current_version": "2026-27",
+      "sources": [
+        {
+          "doc_name": "PMSS 2023-24.pdf",
+          "page": 4,
+          "section": "Clause 6: Amount of Scholarship",
+          "quote": "Rs. 3000/- per month for girls. Rs. 2500/- per month for boys."
+        }
+      ],
+      "changes": [
+        {
+          "field": "Monthly Stipend (Girls)",
+          "parameter": "Monthly Stipend (Girls)",
+          "old_value": "Rs. 3,000/month (Rs. 36,000/year)",
+          "new_value": "Rs. 3,600/month (Rs. 43,200/year)",
+          "change_label": "Increased by Rs. 600/month — Extra Rs. 7,200 annually",
+          "direction": "increase",
+          "impact": "If you are a girl scholar, you receive Rs. 7,200 more per year under the revised 2026-27 guidelines.",
+          "sources": [
+            {
+              "doc_name": "PMSS 2023-24.pdf",
+              "page": 4,
+              "section": "Clause 6: Amount of Scholarship",
+              "quote": "Rs. 3000/- per month for girls. Rs. 2500/- per month for boys."
+            }
+          ]
+        },
+        {
+          "field": "Monthly Stipend (Boys)",
+          "parameter": "Monthly Stipend (Boys)",
+          "old_value": "Rs. 2,500/month (Rs. 30,000/year)",
+          "new_value": "Rs. 3,000/month (Rs. 36,000/year)",
+          "change_label": "Increased by Rs. 500/month — Extra Rs. 6,000 annually",
+          "direction": "increase",
+          "impact": "If you are a male scholar, you receive Rs. 6,000 more per year under the revised 2026-27 guidelines.",
+          "sources": [
+            {
+              "doc_name": "PMSS 2023-24.pdf",
+              "page": 4,
+              "section": "Clause 6: Amount of Scholarship",
+              "quote": "Rs. 2500/- per month for boys."
+            }
+          ]
+        },
+        {
+          "field": "Annual Family Income Ceiling",
+          "parameter": "Annual Family Income Ceiling",
+          "old_value": "Rs. 6,00,000/year",
+          "new_value": "Rs. 8,00,000/year",
+          "change_label": "Relaxed by Rs. 2,00,000 — More families now eligible",
+          "direction": "increase",
+          "impact": "Families with income between Rs. 6L and Rs. 8L per year are now newly eligible. This change directly benefits citizens who were previously excluded due to the lower income cap.",
+          "sources": [
+            {
+              "doc_name": "PMSS 2023-24.pdf",
+              "page": 3,
+              "section": "Clause 3(A): Eligibility — Family Income",
+              "quote": "Family income of the beneficiary from all sources should not exceed Rs. 6.00 Lakh per annum."
+            }
+          ]
+        }
+      ]
+    }
   }
 ]
