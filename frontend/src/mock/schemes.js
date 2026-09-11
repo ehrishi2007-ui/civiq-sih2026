@@ -47,7 +47,7 @@ export const mockSchemes = [
     benefit: "Margin money subsidy up to 35% on project loans up to ₹50 Lakhs",
     score: 0.88,
     eligible: true,
-    application_url: "https://www.myscheme.gov.in/schemes/pmegp",
+    application_url: "https://pmegp.msme.gov.in/",
     tags: ["employment", "micro-enterprise", "subsidy", "msme", "business"],
     documents_required: [
       "Aadhaar",
@@ -167,7 +167,7 @@ export const mockSchemes = [
     benefit: "Monthly pension of ₹1,000 to ₹5,000 based on contribution",
     score: 0.70,
     eligible: false,
-    application_url: "https://www.npscra.nsdl.co.in",
+    application_url: "https://web.umang.gov.in/landing/scheme/detail/atal-pension-yojana_apy.html",
     tags: ["pension", "social-security", "financial-inclusion", "senior-citizen"],
     documents_required: ["Aadhaar Card", "Active Savings Bank Account", "Mobile Number"],
     criteria: [
