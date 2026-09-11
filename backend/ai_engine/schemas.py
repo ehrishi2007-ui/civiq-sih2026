@@ -47,7 +47,7 @@ class Scheme(BaseModel):
     benefit_summary: str
     application_url: str
     closing_date: Optional[str] = None
-    version_year: int
+    version_year: int = 2024
     criteria: List[Criterion] = Field(default_factory=list)
     tags: Optional[List[str]] = Field(default_factory=list)
     documents_required: Optional[List[str]] = Field(default_factory=list)
@@ -78,7 +78,7 @@ class CriterionResult(BaseModel):
     user_value: Any = None
     expected_value: Any = None
     operator: str
-    citation: Dict[str, Any]
+    citation: Dict[str, Any] = Field(default_factory=dict)
     reason: Optional[str] = None
 
     def __getitem__(self, item: str) -> Any:
@@ -89,15 +89,21 @@ class CriterionResult(BaseModel):
 
 
 class EvaluationResult(BaseModel):
-    """Comprehensive, deterministic evaluation outcome for a scheme against a profile."""
+    """
+    Comprehensive, deterministic evaluation outcome for a scheme against a profile.
+    Supports both object attribute access and dictionary access for full caller compatibility.
+    """
     model_config = ConfigDict(extra="ignore")
 
     scheme_id: str
     overall_status: str  # "ELIGIBLE", "NOT_ELIGIBLE", "INSUFFICIENT_DATA"
-    criteria: List[CriterionResult]
-    passed_count: int
-    failed_count: int
-    missing_count: int
+    criteria: List[CriterionResult] = Field(default_factory=list)
+    nodes: List[Dict[str, Any]] = Field(default_factory=list)
+    passed_count: int = 0
+    failed_count: int = 0
+    missing_count: int = 0
+    total_count: int = 0
+    match_score: int = 0
 
     @property
     def results(self) -> List[CriterionResult]:
@@ -109,17 +115,14 @@ class EvaluationResult(BaseModel):
     def get(self, item: str, default: Any = None) -> Any:
         return getattr(self, item, default)
 
-    def to_dict(self) -> Dict[str, Any]:
-        return self.model_dump()
 
-
-def validate_scheme(data: Union[Dict[str, Any], Scheme]) -> Scheme:
-    """Validates and returns a typed Scheme object from a dictionary or instance."""
+def validate_scheme(data: Any) -> Scheme:
+    """Validates raw data into a typed Scheme model."""
     if isinstance(data, Scheme):
         return data
     return Scheme.model_validate(data)
 
 
-def validate_schemes_list(data: List[Any]) -> List[Scheme]:
-    """Validates a list of scheme dictionaries against the canonical scheme contract."""
-    return [validate_scheme(item) for item in data]
+def validate_schemes_list(schemes: List[Any]) -> List[Scheme]:
+    """Validates a list of scheme objects."""
+    return [validate_scheme(s) for s in schemes]

@@ -1,7 +1,13 @@
+# API & Server Foundation
 fastapi>=0.110.0
 uvicorn>=0.28.0
 pydantic>=2.0.0
 httpx>=0.27.0
+python-dotenv>=1.0.1
 pytest>=8.0.0
+
+# Core AI & Google GenAI SDK (Modern SDK)
 google-genai>=2.0.0
+
+# Database & Storage (Optional)
 supabase>=2.10.0
