@@ -280,6 +280,7 @@ def test_direct_profile_payload():
     response = client.post("/api/v1/match", json=profile)
     assert response.status_code == 200
     data = response.json()
-    # Evaluates against canonical data/schemes_extracted.json (currently empty)
-    assert data["total_evaluated"] == 0
-    assert data["matches"] == []
+    # Evaluates against canonical data/schemes_extracted.json
+    assert data["total_evaluated"] >= 3
+    assert "matches" in data
+    assert len(data["matches"]) == data["total_evaluated"]

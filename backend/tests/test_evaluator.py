@@ -457,7 +457,7 @@ def test_pydantic_scheme_validation():
 
 
 def test_canonical_schemes_extracted_file_contract():
-    """Validates that data/schemes_extracted.json is present, empty list, and valid against schema."""
+    """Validates that data/schemes_extracted.json is present and valid against schema."""
     json_path = Path(__file__).resolve().parent.parent.parent / "data" / "schemes_extracted.json"
     assert json_path.exists(), f"Missing canonical file: {json_path}"
 
@@ -465,9 +465,9 @@ def test_canonical_schemes_extracted_file_contract():
         data = json.load(f)
 
     assert isinstance(data, list)
-    assert len(data) == 0  # Canonical placeholder must remain empty list
+    assert len(data) >= 3  # Verified canonical MVP schemes
     validated = validate_schemes_list(data)
-    assert validated == []
+    assert len(validated) == len(data)
 
 
 def test_result_dict_and_attr_access():

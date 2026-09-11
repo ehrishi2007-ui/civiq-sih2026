@@ -1,1 +1,143 @@
-[]
+[
+  {
+    "id": "pm_kisan",
+    "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+    "ministry": "Ministry of Agriculture & Farmers' Welfare",
+    "short_desc": "Income support of ₹6,000 per year to all landholding farmer families across the country.",
+    "benefit_summary": "₹6,000 per year released online in three 4-monthly installments of ₹2,000 each via Direct Benefit Transfer (DBT).",
+    "application_url": "https://pmkisan.gov.in",
+    "closing_date": null,
+    "version_year": 2020,
+    "tags": [
+      "agriculture",
+      "income-support",
+      "central-sector",
+      "farmer"
+    ],
+    "documents_required": [
+      "Aadhaar",
+      "Land Record / RoR",
+      "Bank Account Details"
+    ],
+    "criteria": [
+      {
+        "id": "crit_pmkisan_land",
+        "label": "Landholding Farmer Family",
+        "field": "has_land",
+        "operator": "==",
+        "expected_value": true,
+        "citation": {
+          "doc_name": "PM-KISAN.pdf",
+          "page": 2,
+          "section": "Clause 3: Definition of farmer's family",
+          "quote": "A landholder farmer's family is defined as 'a family comprising of husband, wife and minor children who owns cultivable land as per land records of the concerned State/UT'."
+        }
+      },
+      {
+        "id": "crit_pmkisan_occupation",
+        "label": "Primary Occupation: Farmer",
+        "field": "occupation",
+        "operator": "==",
+        "expected_value": "Farmer",
+        "citation": {
+          "doc_name": "PM-KISAN.pdf",
+          "page": 2,
+          "section": "Clause 1: Scheme",
+          "quote": "With a view to provide income support to all landholding farmers' families in the country, having cultivable land, the Central Government has implemented a Central Sector Scheme, namely, 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)'."
+        }
+      }
+    ],
+    "policy_diff": null
+  },
+  {
+    "id": "pmegp",
+    "name": "Prime Minister's Employment Generation Programme (PMEGP)",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises (MSME)",
+    "short_desc": "Credit-linked subsidy programme to generate self-employment micro-enterprises in non-farm sector.",
+    "benefit_summary": "Margin money subsidy of up to 35% on project loans up to ₹50 Lakhs (Manufacturing) and ₹20 Lakhs (Service/Business).",
+    "application_url": "https://www.kviconline.gov.in/pmegpeportal",
+    "closing_date": null,
+    "version_year": 2022,
+    "tags": [
+      "employment",
+      "micro-enterprise",
+      "subsidy",
+      "msme",
+      "business"
+    ],
+    "documents_required": [
+      "Aadhaar",
+      "Project Report",
+      "Education Certificate (VIII pass for >10L Mfg)",
+      "Bank Account Details"
+    ],
+    "criteria": [
+      {
+        "id": "crit_pmegp_age",
+        "label": "Age ≥ 18 Years",
+        "field": "age",
+        "operator": ">=",
+        "expected_value": 18,
+        "citation": {
+          "doc_name": "PMEGP.pdf",
+          "page": 5,
+          "section": "Section 4.1: For PMEGP new enterprises (Units), Clause (i)",
+          "quote": "Any individual, above 18 years of age"
+        }
+      }
+    ],
+    "policy_diff": null
+  },
+  {
+    "id": "pm_scholarship_warb",
+    "name": "Prime Minister's Scholarship Scheme (WARB)",
+    "ministry": "Ministry of Home Affairs",
+    "short_desc": "Scholarship to encourage higher technical and professional education for dependent wards & widows of CAPFs, Assam Rifles, and State Police Personnel.",
+    "benefit_summary": "₹3,000/- per month for girls (₹36,000/year) and ₹2,500/- per month for boys (₹30,000/year).",
+    "application_url": "https://scholarships.gov.in",
+    "closing_date": null,
+    "version_year": 2023,
+    "tags": [
+      "education",
+      "scholarship",
+      "capf",
+      "police-wards",
+      "higher-education"
+    ],
+    "documents_required": [
+      "Aadhaar linked Bank Account",
+      "MEQ Mark sheet (10+2/Diploma/Graduation)",
+      "PPO / Discharge Certificate / Gallantry Certificate",
+      "Certificate issued by State Govt for State Police Martyred"
+    ],
+    "criteria": [
+      {
+        "id": "crit_pmss_student",
+        "label": "Enrolled in Professional Degree Course",
+        "field": "occupation",
+        "operator": "==",
+        "expected_value": "Student",
+        "citation": {
+          "doc_name": "PMSS 2023-24.pdf",
+          "page": 3,
+          "section": "Clause 3(B)(I): Eligible Programmes",
+          "quote": "Pursuing first professional degree programme in the field of Engineering, Medicine, Dental, Veterinary, BBA, BCA, B. Pharma, B.SC (Nursing, Agriculture, etc.), MBA and MCA etc."
+        }
+      },
+      {
+        "id": "crit_pmss_marks",
+        "label": "Minimum Entry Qualification Marks ≥ 60%",
+        "field": "marks_percentage",
+        "operator": ">=",
+        "expected_value": 60,
+        "citation": {
+          "doc_name": "PMSS 2023-24.pdf",
+          "page": 3,
+          "section": "Clause 3(B)(II): Minimum Marks in MEQ",
+          "quote": "Having minimum 60% marks in Minimum Entry Qualification (MEQ ) i.e. 10+2/Diploma/Graduation or equivalent in case of new applicant."
+        }
+      }
+    ],
+    "policy_diff": null
+  }
+]

@@ -14,6 +14,32 @@ from .schemas import (
     validate_schemes_list,
 )
 from .evaluator import evaluate_eligibility, SUPPORTED_OPERATORS
+from .pdf_service import (
+    APPROVED_MVP_PDFS,
+    EXCLUDED_PDFS,
+    PDFServiceError,
+    MissingPDFError,
+    GeminiAuthError,
+    GeminiUploadError,
+    discover_approved_pdfs,
+    load_registry,
+    save_registry,
+    ingest_official_pdfs,
+    get_official_pdf_handles,
+)
+from .rag import ask_policy, extract_citations, SYSTEM_INSTRUCTION
+from .vector_store import get_uploaded_files, upload_all_pdfs
+from .myth_checker import check_myth, load_myths, map_verdict
+from .comparator import compare_policy_versions
+from .translator import (
+    SUPPORTED_LANGUAGES,
+    VALID_TARGET_LANGUAGES,
+    translate_text,
+    translate_texts,
+    translate_text_with_meta,
+    clear_cache,
+)
+from .db_client import get_client, is_connected, reset_client
 
 __all__ = [
     "Citation",
@@ -27,4 +53,35 @@ __all__ = [
     "validate_schemes_list",
     "evaluate_eligibility",
     "SUPPORTED_OPERATORS",
+    "APPROVED_MVP_PDFS",
+    "EXCLUDED_PDFS",
+    "PDFServiceError",
+    "MissingPDFError",
+    "GeminiAuthError",
+    "GeminiUploadError",
+    "discover_approved_pdfs",
+    "load_registry",
+    "save_registry",
+    "ingest_official_pdfs",
+    "get_official_pdf_handles",
+    "ask_policy",
+    "extract_citations",
+    "SYSTEM_INSTRUCTION",
+    "get_uploaded_files",
+    "upload_all_pdfs",
+    "check_myth",
+    "load_myths",
+    "map_verdict",
+    "compare_policy_versions",
+    "SUPPORTED_LANGUAGES",
+    "VALID_TARGET_LANGUAGES",
+    "translate_text",
+    "translate_texts",
+    "translate_text_with_meta",
+    "clear_cache",
+    "get_client",
+    "is_connected",
+    "reset_client",
 ]
+
+

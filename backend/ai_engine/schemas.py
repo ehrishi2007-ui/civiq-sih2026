@@ -30,6 +30,7 @@ class Criterion(BaseModel):
     operator: str
     expected_value: Any
     citation: Citation
+    label: Optional[str] = None
 
     def __getitem__(self, item: str) -> Any:
         return getattr(self, item)
@@ -48,6 +49,9 @@ class Scheme(BaseModel):
     closing_date: Optional[str] = None
     version_year: int
     criteria: List[Criterion] = Field(default_factory=list)
+    tags: Optional[List[str]] = Field(default_factory=list)
+    documents_required: Optional[List[str]] = Field(default_factory=list)
+    policy_diff: Optional[Dict[str, Any]] = None
 
     def __getitem__(self, item: str) -> Any:
         return getattr(self, item)

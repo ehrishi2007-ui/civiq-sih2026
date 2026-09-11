@@ -1,1 +1,94 @@
-[]
+[
+  {
+    "id": "myth_01",
+    "claim_keywords": [
+      "modi 50000", "50000 farmers", "pm 50000 cash", "50k scheme",
+      "modi 50k", "50000 kisan", "50000 to farmers", "50000 farmer scheme",
+      "pm giving 50000", "government 50000", "giving 50000 to all",
+      "50000 to all farmers", "modi giving 50000", "giving 50000",
+      "pm-kisan gives ₹10,000", "10000 per year", "10,000 per year",
+      "pm kisan 10000", "pm-kisan 10000", "pm-kisan gives 10000"
+    ],
+    "verdict": "FALSE",
+    "explanation": "PM-KISAN Samman Nidhi provides ₹6,000 per year, not ₹50,000 or ₹10,000. The amount is disbursed in three equal 4-monthly installments of ₹2,000 each, directly into the bank accounts of eligible landholder farmer families via Direct Benefit Transfer (DBT). Beware of fraudulent WhatsApp links or phishing websites.",
+    "warning": "No government scheme exists providing ₹50,000 or ₹10,000 direct cash transfers to all citizens or farmers. Beware of phishing links that steal your Aadhaar and bank details.",
+    "real_scheme_id": "pm_kisan",
+    "real_scheme_name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "real_facts": "The legitimate PM-KISAN scheme provides ₹6,000 per year in three equal installments of ₹2,000 to eligible landholding farmers via Direct Benefit Transfer (DBT). Check status only at pmkisan.gov.in.",
+    "citation": "PM-KISAN Operational Guidelines, Ministry of Agriculture, Page 2",
+    "sources": [
+      {
+        "document": "PM-KISAN.pdf",
+        "doc_name": "PM-KISAN.pdf",
+        "page": 2,
+        "section": "Clause 1: Scheme",
+        "quote": "With a view to provide income support to all landholding farmers' families in the country, having cultivable land, the Central Government has implemented a Central Sector Scheme, namely, 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)'."
+      }
+    ]
+  },
+  {
+    "id": "myth_02",
+    "claim_keywords": [
+      "free laptop", "modi laptop", "free tablet scheme 2026",
+      "government free laptop", "pm laptop yojana", "free laptop registration",
+      "laptop scheme apply", "free laptop link"
+    ],
+    "verdict": "UNVERIFIED",
+    "explanation": "The Central Government is not running any direct nationwide 'Free Laptop 2026' registration link on WhatsApp or Telegram. Such links are fraudulent phishing scams designed to steal personal data. This claim cannot be officially substantiated from CiviQ's approved policy documents.",
+    "warning": "Central Government is not running any direct nationwide 'Free Laptop 2026' registration link on WhatsApp or Telegram. Such links steal personal data.",
+    "real_scheme_id": "pm_scholarship_warb",
+    "real_scheme_name": "Prime Minister's Scholarship Scheme (WARB)",
+    "real_facts": "Legitimate educational assistance is provided via Direct Benefit Transfer (DBT) scholarships through the official National Scholarship Portal at scholarships.gov.in.",
+    "citation": "PIB Fact Check & Ministry of Electronics & IT Advisory",
+    "sources": []
+  },
+  {
+    "id": "myth_03",
+    "claim_keywords": [
+      "8000 monthly pension", "modi pension 8000", "free pension all",
+      "8000 rupees pension", "pm pension yojana 8000", "8000 pension scheme"
+    ],
+    "verdict": "UNVERIFIED",
+    "explanation": "No universal ₹8,000/month pension scheme exists. While Atal Pension Yojana exists, the specific citizen pension slabs cannot be substantiated from the operational circular in CiviQ's official document repository. Beware of phishing links collecting Aadhaar numbers.",
+    "warning": "No scheme provides ₹8,000/month universal pension to all citizens. This is a common WhatsApp fraud used to collect Aadhaar numbers.",
+    "real_scheme_id": "apy",
+    "real_scheme_name": "Atal Pension Yojana (APY)",
+    "real_facts": "APY provides a guaranteed pension of ₹1,000 to ₹5,000/month at age 60 based on contribution. Apply at your nearest bank branch or Jan Dhan account.",
+    "citation": "PFRDA Official Scheme Information",
+    "sources": []
+  },
+  {
+    "id": "myth_04",
+    "claim_keywords": [
+      "free gas cylinder", "free lpg 2026", "modi free cylinder",
+      "12 free cylinders", "free cooking gas", "lpg free scheme link",
+      "free gas cylinders every month"
+    ],
+    "verdict": "UNVERIFIED",
+    "explanation": "The Government is not offering 12 free LPG cylinders via WhatsApp registration links. While Pradhan Mantri Ujjwala Yojana exists, its official guidelines are not in CiviQ's approved MVP document repository, so this claim cannot be officially verified here. Beware of unverified social media forwards.",
+    "warning": "Government is not offering 12 free LPG cylinders via WhatsApp registration links. Ujjwala scheme provides subsidised connections — not unlimited free refills.",
+    "real_scheme_id": "pmuy",
+    "real_scheme_name": "Pradhan Mantri Ujjwala Yojana (PMUY)",
+    "real_facts": "PMUY provides free LPG connections (not unlimited refills) to BPL households. Apply at your nearest LPG distributor or at pmuy.gov.in.",
+    "citation": "Ministry of Petroleum and Natural Gas Advisory",
+    "sources": []
+  },
+  {
+    "id": "myth_05",
+    "claim_keywords": [
+      "2 lakh accident insurance free", "free 2 lakh insurance",
+      "pradhan mantri free insurance 2 lakh", "2 lakh bima free link",
+      "accident insurance whatsapp", "free life insurance 2026",
+      "free 2 lakh", "2 lakh insurance whatsapp", "free insurance whatsapp",
+      "2 lakh bima whatsapp", "free accident insurance link"
+    ],
+    "verdict": "UNVERIFIED",
+    "explanation": "While accidental insurance schemes like PMSBY exist, they require bank enrolment and their guidelines are not in CiviQ's approved MVP document repository. This claim cannot be officially verified here. Never register for insurance schemes via WhatsApp links.",
+    "warning": "While PMSBY does provide ₹2 lakh accidental insurance for just ₹20/year, it is NOT free and cannot be registered via WhatsApp links. Official enrolment is through your bank only.",
+    "real_scheme_id": "pmsby",
+    "real_scheme_name": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+    "real_facts": "PMSBY provides ₹2 lakh accidental death/disability cover for a premium of ₹20 per year. Auto-debit enrolment via your savings bank account only.",
+    "citation": "Department of Financial Services, Ministry of Finance",
+    "sources": []
+  }
+]
