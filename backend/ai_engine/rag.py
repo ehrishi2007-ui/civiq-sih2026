@@ -1,18 +1,14 @@
 import os
-import google.generativeai as genai
 from dotenv import load_dotenv
+from google import genai
 from backend.ai_engine.vector_store import get_uploaded_files
 
 load_dotenv()
 
 API_KEY = os.getenv("GEMINI_API_KEY")
-if API_KEY:
-    genai.configure(api_key=API_KEY)
+client = genai.Client(api_key=API_KEY) if API_KEY else None
 
-# Use the latest high-accuracy Gemini 2.5 Flash model
-_model = genai.GenerativeModel(
-    model_name="gemini-2.5-flash",
-    system_instruction="""
+SYSTEM_INSTRUCTION = """
 You are CiviQ's Policy Intelligence AI.
 Answer citizen questions strictly based on the attached official Indian government scheme guideline PDFs.
 
@@ -26,19 +22,12 @@ Format your answer clearly:
    "The available official policy documents do not contain information regarding this."
 4. Do NOT hallucinate rules or invent eligibility thresholds.
 """
-)
 
 def ask_policy(question: str) -> dict:
     """
     Queries Gemini 2.5 Flash using the long context of attached official PDFs.
-    
-    Args:
-        question: User's query (e.g., 'What is the family income limit for PMSS?')
-    
-    Returns:
-        Dictionary with answer text, model info, and status.
     """
-    if not API_KEY:
+    if not client:
         return {
             "success": False,
             "error": "GEMINI_API_KEY not configured",
@@ -55,8 +44,13 @@ def ask_policy(question: str) -> dict:
 
     try:
         # Pass all loaded PDFs + the user question into Gemini's multi-document context
-        prompt_content = [*files, f"User Question: {question}"]
-        response = _model.generate_content(prompt_content)
+        contents = [*files, f"User Question: {question}"]
+        
+        response = client.models.generate_content(
+            model="gemini-3.6-flash",
+            contents=contents,
+            config={"system_instruction": SYSTEM_INSTRUCTION}
+        )
 
         return {
             "success": True,
@@ -72,7 +66,10 @@ def ask_policy(question: str) -> dict:
         }
 
 if __name__ == "__main__":
+    import sys
+    sys.stdout.reconfigure(encoding='utf-8')
     test_q = "What is the scholarship amount for girls under PMSS?"
     print(f"Testing Question: {test_q}")
     res = ask_policy(test_q)
-    print(res["answer"])
+    print("\n--- POLICY ANSWER ---")
+    print(res.get("answer"))

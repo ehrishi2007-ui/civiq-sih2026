@@ -1,26 +1,20 @@
 # translator.py
 # Owned by: Dev 1 (Data & AI Architect)
-# Purpose : Translate UI strings to Indian languages using Gemini Flash.
-#           Replaces the Bhashini API dependency entirely.
-#           Dev 2 calls translate_texts() from backend/api/routes/translate.py
+# Purpose : Translate UI strings to Indian languages using Gemini Flash with google-genai SDK.
 
 import os
 import json
-import google.generativeai as genai
 from dotenv import load_dotenv
+from google import genai
 
 load_dotenv()
 
-# Configure Gemini once at module load
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-_model = genai.GenerativeModel("gemini-2.5-flash")
+API_KEY = os.getenv("GEMINI_API_KEY")
+client = genai.Client(api_key=API_KEY) if API_KEY else None
 
-# ── In-memory cache ────────────────────────────────────────────────────────────
-# Key format: "{target_lang}:{original_text}"  →  translated string
-# Prevents calling Gemini twice for the same string in the same session.
+# In-memory translation cache
 _CACHE: dict[str, str] = {}
 
-# ── Supported languages ────────────────────────────────────────────────────────
 SUPPORTED_LANGUAGES = {
     "hi": "Hindi",
     "ta": "Tamil",
@@ -34,25 +28,15 @@ SUPPORTED_LANGUAGES = {
     "or": "Odia",
 }
 
-
 def translate_texts(texts: list[str], target_lang: str) -> list[str]:
     """
     Translate a list of UI strings into the target Indian language.
-
-    Args:
-        texts       : List of strings to translate (e.g. ["Eligible Schemes", "Apply Now"])
-        target_lang : ISO 639-1 language code (e.g. "hi", "ta", "te")
-
-    Returns:
-        List of translated strings in the same order as input.
-        Falls back to the original string if translation fails.
     """
     if target_lang == "en" or target_lang not in SUPPORTED_LANGUAGES:
-        return texts  # No translation needed
+        return texts
 
     lang_name = SUPPORTED_LANGUAGES[target_lang]
 
-    # ── Split into cached and uncached ────────────────────────────────────────
     results = [None] * len(texts)
     uncached_texts = []
     uncached_indices = []
@@ -65,41 +49,40 @@ def translate_texts(texts: list[str], target_lang: str) -> list[str]:
             uncached_texts.append(text)
             uncached_indices.append(i)
 
-    # ── Batch-translate uncached strings in one Gemini call ───────────────────
-    if uncached_texts:
+    if uncached_texts and client:
         translated = _call_gemini(uncached_texts, lang_name)
         for idx, translated_text in zip(uncached_indices, translated):
             cache_key = f"{target_lang}:{texts[idx]}"
             _CACHE[cache_key] = translated_text
             results[idx] = translated_text
+    elif uncached_texts:
+        for idx in uncached_indices:
+            results[idx] = texts[idx]
 
     return results
 
-
 def _call_gemini(texts: list[str], lang_name: str) -> list[str]:
-    """
-    Internal: Call Gemini Flash to translate a batch of strings.
-    Returns the original strings on any failure (safe fallback).
-    """
-    prompt = f"""You are a translation assistant for a government scheme platform.
+    prompt = f"""You are a translation assistant for an Indian government scheme platform.
 Translate the following UI strings into {lang_name}.
 Rules:
 - Return ONLY a valid JSON array of translated strings.
 - Preserve the exact same order as the input.
 - Keep proper nouns (e.g. scheme names, ministry names) in English.
-- Do not add explanations or extra text.
+- Do not add explanations or markdown quotes.
 
 Input strings:
 {json.dumps(texts, ensure_ascii=False)}"""
 
     try:
-        response = _model.generate_content(prompt)
-        # Strip markdown code fences if Gemini wraps the JSON
+        response = client.models.generate_content(
+            model="gemini-3.6-flash",
+            contents=prompt
+        )
         raw = response.text.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         translated = json.loads(raw)
         if isinstance(translated, list) and len(translated) == len(texts):
             return translated
-    except Exception:
-        pass  # Fall through to safe fallback
+    except Exception as e:
+        print(f"Translation notice: {e}")
 
-    return texts  # Return originals if anything fails
+    return texts

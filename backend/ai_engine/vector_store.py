@@ -1,24 +1,22 @@
 import os
 import glob
 import json
-import google.generativeai as genai
 from dotenv import load_dotenv
+from google import genai
 
 load_dotenv()
 
-# Configure Gemini once
 API_KEY = os.getenv("GEMINI_API_KEY")
-if API_KEY:
-    genai.configure(api_key=API_KEY)
+client = genai.Client(api_key=API_KEY) if API_KEY else None
 
 CACHE_FILE = os.path.join(os.path.dirname(__file__), "uploaded_files.json")
 
 def upload_all_pdfs(pdf_dir: str = "data/raw_pdfs") -> dict:
     """
-    Scans the PDF folder and uploads all scheme guidelines to Gemini File API.
+    Scans the PDF folder and uploads all scheme guidelines to Gemini File API using google-genai SDK.
     Caches uploaded file metadata to avoid re-uploading.
     """
-    if not API_KEY:
+    if not client:
         raise ValueError("GEMINI_API_KEY is not set in environment variables.")
 
     # Locate PDFs relative to repo root if path is relative
@@ -48,39 +46,39 @@ def upload_all_pdfs(pdf_dir: str = "data/raw_pdfs") -> dict:
         # Check if already registered and valid
         if filename in uploaded_files:
             try:
-                # Test if file still exists in Gemini
-                remote_file = genai.get_file(uploaded_files[filename]["name"])
+                remote_file = client.files.get(name=uploaded_files[filename]["name"])
                 if remote_file.state.name == "ACTIVE":
-                    print(f"✓ Already active: {filename}")
+                    print(f"Already active in Gemini: {filename}")
                     continue
             except Exception:
-                print(f"Re-uploading expired or missing file: {filename}")
+                print(f"Re-uploading: {filename}")
 
         print(f"Uploading to Gemini File API: {filename}...")
         try:
-            uploaded = genai.upload_file(path=file_path, display_name=filename)
+            uploaded = client.files.upload(file=file_path)
             uploaded_files[filename] = {
                 "name": uploaded.name,
                 "uri": uploaded.uri,
                 "display_name": filename,
-                "size_bytes": uploaded.size_bytes
+                "size_bytes": getattr(uploaded, "size_bytes", None)
             }
             updated = True
-            print(f"✓ Successfully uploaded: {filename} -> {uploaded.name}")
+            print(f"Successfully uploaded: {filename} -> {uploaded.name}")
         except Exception as e:
-            print(f"✗ Failed to upload {filename}: {e}")
+            print(f"Failed to upload {filename}: {e}")
 
     if updated or not os.path.exists(CACHE_FILE):
         with open(CACHE_FILE, "w", encoding="utf-8") as f:
             json.dump(uploaded_files, f, indent=2)
 
+    print("Gemini PDF Document Registry is ready!")
     return uploaded_files
 
 def get_uploaded_files() -> list:
     """
     Returns active Gemini file handles for all registered scheme documents.
     """
-    if not os.path.exists(CACHE_FILE):
+    if not client or not os.path.exists(CACHE_FILE):
         return []
 
     try:
@@ -90,7 +88,7 @@ def get_uploaded_files() -> list:
         handles = []
         for item in data.values():
             try:
-                file_handle = genai.get_file(item["name"])
+                file_handle = client.files.get(name=item["name"])
                 handles.append(file_handle)
             except Exception as e:
                 print(f"Warning: Could not fetch handle for {item['name']}: {e}")
