@@ -203,5 +203,107 @@
         }
       ]
     }
+  },
+  {
+    "id": "standup_india",
+    "name": "Stand-Up India Scheme",
+    "ministry": "Ministry of Finance",
+    "short_desc": "Bank loans between Rs. 10 Lakhs and Rs. 1 Crore to at least one SC/ST borrower and at least one woman borrower per bank branch.",
+    "benefit_summary": "Composite loan between Rs. 10 Lakhs and Rs. 1 Crore for setting up greenfield manufacturing, service, or trading units.",
+    "application_url": "https://www.standupmitra.in",
+    "closing_date": null,
+    "version_year": 2022,
+    "tags": [
+      "entrepreneurship",
+      "business",
+      "women-empowerment",
+      "sc-st",
+      "credit"
+    ],
+    "documents_required": [
+      "Identity Proof (Aadhaar / Voter ID / Passport)",
+      "Proof of Category (SC/ST Certificate or Female Gender)",
+      "Project Report (Business Plan)",
+      "Bank Account Statements"
+    ],
+    "criteria": [
+      {
+        "id": "crit_standup_age",
+        "label": "Borrower Age >= 18 Years",
+        "field": "age",
+        "operator": ">=",
+        "expected_value": 18,
+        "citation": {
+          "doc_name": "StandupIndia.pdf",
+          "page": 3,
+          "section": "Clause 1: Eligibility",
+          "quote": "SC/ST and/or women entrepreneurs, above 18 years of age."
+        }
+      },
+      {
+        "id": "crit_standup_target",
+        "label": "Target Beneficiary: Woman or SC/ST Entrepreneur",
+        "field": "gender",
+        "operator": "==",
+        "expected_value": "female",
+        "citation": {
+          "doc_name": "StandupIndia.pdf",
+          "page": 3,
+          "section": "Clause 1: Objective",
+          "quote": "The objective of the Stand Up India scheme is to facilitate bank loans between 10 lakh and 1 Crore to at least one Scheduled Caste (SC) or Scheduled Tribe (ST) borrower and at least one woman borrower per bank branch for setting up a greenfield enterprise."
+        }
+      }
+    ],
+    "policy_diff": null
+  },
+  {
+    "id": "apy",
+    "name": "Atal Pension Yojana (APY)",
+    "ministry": "Ministry of Finance",
+    "short_desc": "Guaranteed minimum monthly pension of Rs. 1,000 to Rs. 5,000 to unorganized sector workers after age 60.",
+    "benefit_summary": "Monthly pension of Rs. 1,000 to Rs. 5,000 based on contribution, with 100% corpus return to nominee.",
+    "application_url": "https://www.npscra.nsdl.co.in",
+    "closing_date": null,
+    "version_year": 2021,
+    "tags": [
+      "pension",
+      "social-security",
+      "financial-inclusion",
+      "senior-citizen"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Active Savings Bank Account",
+      "Mobile Number"
+    ],
+    "criteria": [
+      {
+        "id": "crit_apy_age_min",
+        "label": "Entry Age >= 18 Years",
+        "field": "age",
+        "operator": ">=",
+        "expected_value": 18,
+        "citation": {
+          "doc_name": "APY.pdf",
+          "page": 3,
+          "section": "Clause A.10: GOI APY Guidelines",
+          "quote": "Further, PoP-APY shall adhere to any notification issued by Government of India on APY, including minimum entry age of 18 years."
+        }
+      },
+      {
+        "id": "crit_apy_age_max",
+        "label": "Entry Age <= 40 Years",
+        "field": "age",
+        "operator": "<=",
+        "expected_value": 40,
+        "citation": {
+          "doc_name": "APY.pdf",
+          "page": 3,
+          "section": "Clause A.10: GOI APY Guidelines",
+          "quote": "Adhere to any notification issued by Government of India on APY, including maximum entry age of 40 years."
+        }
+      }
+    ],
+    "policy_diff": null
   }
 ]

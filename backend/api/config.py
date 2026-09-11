@@ -5,6 +5,14 @@ CiviQ Backend Configuration.
 import os
 from pathlib import Path
 from typing import List
+from dotenv import load_dotenv
+
+# Ensure backend/.env is automatically loaded
+env_path = Path(__file__).resolve().parent.parent / ".env"
+if env_path.exists():
+    load_dotenv(env_path)
+else:
+    load_dotenv()
 
 
 class Settings:
@@ -24,7 +32,7 @@ class Settings:
     RAW_PDFS_DIR: Path = DATA_DIR / "raw_pdfs"
     UPLOADED_FILES_REGISTRY: Path = Path(__file__).resolve().parent.parent / "ai_engine" / "uploaded_files.json"
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
     GOOGLE_TRANSLATE_API_KEY: str = os.getenv("GOOGLE_TRANSLATE_API_KEY", "")
     SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
     SUPABASE_KEY: str = os.getenv("SUPABASE_KEY", "")

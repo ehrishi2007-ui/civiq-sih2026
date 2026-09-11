@@ -187,8 +187,9 @@ def test_successful_api_response_parsing_and_html_unescape():
 # ==========================================
 
 def test_api_failure_fallback_does_not_crash_or_cache():
-    """Verify API 500 error triggers fallback to original text and does NOT cache failure."""
-    with patch("ai_engine.translator._call_google_translate_api", return_value=None) as mock_api:
+    """Verify API error triggers fallback to original text and does NOT cache failure."""
+    with patch("ai_engine.translator._call_google_translate_api", return_value=None) as mock_api, \
+         patch("ai_engine.translator._call_gemini_translate", return_value=None):
         text = "Application Status"
         result = translate_text(text, "ta")
 
@@ -207,8 +208,9 @@ def test_api_failure_fallback_does_not_crash_or_cache():
 # ==========================================
 
 def test_missing_api_key_fallback():
-    """Verify unconfigured GOOGLE_TRANSLATE_API_KEY gracefully returns source text and conservative language."""
-    with patch("ai_engine.translator.settings.GOOGLE_TRANSLATE_API_KEY", ""):
+    """Verify unconfigured API keys gracefully return source text and conservative language."""
+    with patch("ai_engine.translator.settings.GOOGLE_TRANSLATE_API_KEY", ""), \
+         patch("ai_engine.translator._call_gemini_translate", return_value=None):
         # ASCII text defaults to "en"
         text = "Check Eligibility"
         result, source_lang = translate_text_with_meta(text, "te")

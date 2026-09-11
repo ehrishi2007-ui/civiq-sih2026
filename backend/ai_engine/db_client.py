@@ -52,8 +52,10 @@ def get_client() -> Optional[Any]:
         _initialized = True
         return None
 
+    clean_url = url.replace("/rest/v1/", "").rstrip("/")
+
     try:
-        _client_instance = create_client(url, key)
+        _client_instance = create_client(clean_url, key)
         logger.info("Supabase client successfully initialized.")
     except Exception as exc:
         logger.warning("Failed to initialize Supabase client: %s", exc)
