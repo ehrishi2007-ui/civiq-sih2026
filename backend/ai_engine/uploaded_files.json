@@ -34,11 +34,5 @@
     "uri": "https://generativelanguage.googleapis.com/v1beta/files/1xkpad6gzrcs",
     "display_name": "StandupIndia.pdf",
     "size_bytes": 768259
-  },
-  "Sukanya_Samriddhi.pdf": {
-    "name": "files/xyw08olw88xx",
-    "uri": "https://generativelanguage.googleapis.com/v1beta/files/xyw08olw88xx",
-    "display_name": "Sukanya_Samriddhi.pdf",
-    "size_bytes": 387738
   }
 }

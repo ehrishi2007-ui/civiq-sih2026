@@ -67,11 +67,19 @@ def upload_all_pdfs(pdf_dir: str = "data/raw_pdfs") -> dict:
         except Exception as e:
             print(f"Failed to upload {filename}: {e}")
 
+    # Prune any cached entries for files that no longer exist on disk
+    current_filenames = {os.path.basename(p) for p in pdf_files}
+    stale_files = [fn for fn in uploaded_files if fn not in current_filenames]
+    for fn in stale_files:
+        print(f"Removing stale cached entry: {fn}")
+        del uploaded_files[fn]
+        updated = True
+
     if updated or not os.path.exists(CACHE_FILE):
         with open(CACHE_FILE, "w", encoding="utf-8") as f:
             json.dump(uploaded_files, f, indent=2)
 
-    print("Gemini PDF Document Registry is ready!")
+    print(f"Gemini PDF Document Registry is ready! ({len(uploaded_files)} documents active)")
     return uploaded_files
 
 def get_uploaded_files() -> list:
