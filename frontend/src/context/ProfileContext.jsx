@@ -5,20 +5,23 @@ const ProfileContext = createContext();
 const defaultProfile = {
   full_name: '',
   age: '',
-  gender: 'male',
+  gender: 'female',
   category: 'General',
   state: '',
   district: '',
   is_rural: false,
   annual_income: '',
-  occupation: '',
-  education: '',
+  occupation: 'Student',
+  education: '10th Pass',
+  marks_percentage: '',
   has_land: false,
   land_acres: '',
   has_bpl_card: false,
+  is_ex_serviceman: false,
+  enterprise_type: 'greenfield',
+  ration_card_type: 'None',
   disability: false,
   minority: false,
-  ration_card_type: 'None',
   documents: [],
 };
 
@@ -29,7 +32,7 @@ function profileReducer(state, action) {
     case 'UPDATE_FIELD':
       return { ...(state || defaultProfile), [action.field]: action.value };
     case 'CLEAR_PROFILE':
-      return { ...defaultProfile };
+      return null;
     default:
       return state;
   }

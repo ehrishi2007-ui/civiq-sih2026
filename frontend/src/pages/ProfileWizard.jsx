@@ -20,22 +20,22 @@ export default function ProfileWizard() {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { profile, dispatch } = useProfile();
-  const [showDigiLocker, setShowDigiLocker] = useState(true);
+  const [showDigiLocker, setShowDigiLocker] = useState(false);
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Canonical profile state
-  const localProfile = profile || {
+  // Canonical blank profile state
+  const blankProfile = {
     full_name: '',
     age: '',
     gender: 'female',
-    category: 'OBC',
-    state: 'Tamil Nadu',
-    district: 'Chennai',
+    category: 'General',
+    state: '',
+    district: '',
     is_rural: false,
     annual_income: '',
     occupation: 'Student',
-    education: '12th Pass',
+    education: '10th Pass',
     marks_percentage: '',
     has_land: false,
     land_acres: '',
@@ -43,6 +43,15 @@ export default function ProfileWizard() {
     is_ex_serviceman: false,
     enterprise_type: 'greenfield',
     ration_card_type: 'None',
+  };
+
+  const localProfile = profile || blankProfile;
+
+  const handleReset = () => {
+    dispatch({ type: 'CLEAR_PROFILE' });
+    dispatch({ type: 'SET_PROFILE', payload: { ...blankProfile } });
+    setStep(1);
+    setShowDigiLocker(false);
   };
 
   const handleUpdate = (field, value) => {
@@ -183,6 +192,20 @@ export default function ProfileWizard() {
             className="px-2.5 py-1 text-xs font-semibold bg-white border border-indigo-300 text-indigo-700 hover:bg-indigo-50 rounded-lg shadow-2xs transition-colors"
           >
             💼 Anita (Woman Entr.)
+          </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="px-2.5 py-1 text-xs font-bold bg-white border border-rose-300 text-rose-700 hover:bg-rose-50 rounded-lg shadow-2xs transition-colors"
+          >
+            🔄 Start Fresh (Blank)
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowDigiLocker(true)}
+            className="px-2.5 py-1 text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-lg shadow-2xs transition-colors"
+          >
+            📂 DigiLocker
           </button>
         </div>
       </div>
