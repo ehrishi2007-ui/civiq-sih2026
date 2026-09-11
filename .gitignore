@@ -22,3 +22,4 @@ build/
 # ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+backend/ai_engine/uploaded_files.json
