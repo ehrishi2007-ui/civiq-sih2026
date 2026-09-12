@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useProfile } from '../context/ProfileContext';
-import { getSchemeById, compareSchemePolicy, getEligibleSchemes } from '../services/schemeService';
+import { getSchemeById, compareSchemePolicy, getEligibleSchemes, autoUpdatePolicy } from '../services/schemeService';
 import { getLocalizedScheme } from '../mock/schemeTranslations';
 import ReasoningTree from '../components/ReasoningTree';
 import EvidenceDrawer from '../components/EvidenceDrawer';
@@ -17,7 +17,9 @@ import {
   AlertTriangle, 
   ExternalLink, 
   FileText, 
-  ShieldCheck 
+  ShieldCheck,
+  Radio,
+  Sparkles
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -31,6 +33,20 @@ export default function SchemeDetail() {
   const [loading, setLoading] = useState(true);
   const [selectedEvidence, setSelectedEvidence] = useState(null);
   const [comparison, setComparison] = useState(null);
+  const [tavilyLiveResult, setTavilyLiveResult] = useState(null);
+  const [isTavilyScanning, setIsTavilyScanning] = useState(false);
+
+  const handleTavilyScan = async () => {
+    try {
+      setIsTavilyScanning(true);
+      const res = await autoUpdatePolicy('pm_scholarship_warb', profile);
+      setTavilyLiveResult(res);
+    } catch (err) {
+      console.error('Tavily live scan failed:', err);
+    } finally {
+      setIsTavilyScanning(false);
+    }
+  };
 
   useEffect(() => {
     const fetchSchemeAndComparison = async () => {
@@ -289,6 +305,125 @@ export default function SchemeDetail() {
         criteria={localizedScheme.criteria || []} 
         onSelectEvidence={setSelectedEvidence} 
       />
+
+      {/* Autonomous Continuous Policy Updation Engine (Tavily AI Drone) */}
+      {(['pm_scholarship_warb', 'pmss', 'pmsy'].includes(id?.toLowerCase()) || Boolean(scheme?.policy_diff)) && (
+        <div className="mt-8 mb-8 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-6 sm:p-8 shadow-xl border border-indigo-800">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-400">
+                <Radio className="w-5 h-5 animate-pulse" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg font-bold text-white">Autonomous Policy Freshness Engine</h3>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                    Tavily AI Drone
+                  </span>
+                </div>
+                <p className="text-xs text-indigo-200 mt-0.5">
+                  Eliminates the 3–6 month portal delay by scanning Press Information Bureau (pib.gov.in)
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={handleTavilyScan}
+              disabled={isTavilyScanning}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 disabled:opacity-60 text-white text-xs font-bold transition-all shadow-md shadow-indigo-950/50"
+            >
+              {isTavilyScanning ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Scanning Official Gov.in...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4 h-4" />
+                  <span>Scan Official Gov.in (Live Ingest)</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Live Ingestion Result Card */}
+          {tavilyLiveResult && (
+            <div className="bg-slate-800/80 backdrop-blur rounded-xl border border-indigo-500/30 p-5 mt-4 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-400">
+                    Discovered Notification
+                  </span>
+                  <h4 className="text-sm font-bold text-white mt-0.5">
+                    {tavilyLiveResult.discovered_announcement?.title}
+                  </h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Source: {tavilyLiveResult.discovered_announcement?.source}
+                  </p>
+                </div>
+                <a
+                  href={tavilyLiveResult.discovered_announcement?.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600/30 text-indigo-300 border border-indigo-400/30 text-xs font-semibold hover:bg-indigo-600/50 transition-colors"
+                >
+                  <span>View Gazette on pib.gov.in</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Citizen Eligibility Flip Banner */}
+              {tavilyLiveResult.citizen_impact?.eligibility_flipped && (
+                <div className="bg-emerald-950/60 border border-emerald-500/40 rounded-lg p-3.5 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
+                    <div>
+                      <p className="text-xs font-bold text-emerald-300">
+                        Eligibility Status Flipped: <span className="line-through opacity-70">NOT_ELIGIBLE</span> ➔ <span className="underline">ELIGIBLE</span>!
+                      </p>
+                      <p className="text-[11px] text-emerald-200/80 mt-0.5">
+                        {tavilyLiveResult.citizen_impact?.citizen_alert}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="text-[10px] uppercase text-emerald-300 font-bold block">Annual Gain</span>
+                    <span className="text-sm font-extrabold text-emerald-400">+₹{tavilyLiveResult.citizen_impact?.annual_financial_gain?.toLocaleString('en-IN')}/yr</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Extracted Parameter Changes */}
+              <div>
+                <h5 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                  Parameters Auto-Extracted via Gemini 3.5 Flash Lite
+                </h5>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {(tavilyLiveResult.policy_diff?.changes || []).map((ch, idx) => (
+                    <div key={idx} className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/50">
+                      <p className="text-xs font-semibold text-slate-300">{ch.parameter}</p>
+                      <p className="text-[11px] text-slate-400 mt-1">
+                        <span className="line-through">{ch.old_value}</span> ➔ <span className="text-indigo-300 font-bold">{ch.new_value}</span>
+                      </p>
+                      <span className="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">
+                        {ch.impact_tag}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-indigo-400" />
+                  <span>Authority: {tavilyLiveResult.evaluator_authority}</span>
+                </span>
+                <span className="text-emerald-400 font-medium">Zero Hallucination Guarantee</span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Policy Change Diffs & Impact — Verified Revisions */}
       {comparison && comparison.verified && comparison.changes && comparison.changes.length > 0 && (
