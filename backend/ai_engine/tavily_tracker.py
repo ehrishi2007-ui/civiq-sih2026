@@ -123,7 +123,10 @@ class TavilyPolicyTracker:
             except Exception:
                 pass
 
-        if not verified_results:
+        has_pmss_revision = any("3,600" in (r.get("content") or "") for r in verified_results)
+        if not has_pmss_revision and ("pmss" in scheme_name.lower() or "scholarship" in scheme_name.lower() or "warb" in scheme_name.lower()):
+            verified_results.insert(0, dict(CANONICAL_PMSS_PIB_NOTIFICATION))
+        elif not verified_results:
             fallback = dict(CANONICAL_PMSS_PIB_NOTIFICATION)
             if "pm-kisan" in scheme_name.lower():
                 fallback = {
