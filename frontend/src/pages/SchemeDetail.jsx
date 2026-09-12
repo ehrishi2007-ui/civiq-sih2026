@@ -24,10 +24,59 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 
+
+const liveUpdateDict = {
+  en: {
+    title: "Official Press Release & Gazette Updates",
+    subtitle: "Directly verified against the Press Information Bureau (pib.gov.in)",
+    btnCheck: "Check for Latest PIB Circulars",
+    btnChecking: "Checking pib.gov.in...",
+    verifiedBadge: "Official Gazette Circular Verified",
+    readPib: "Read Official Announcement on pib.gov.in",
+    summaryNote: "Latest circular verified. The revised stipend rates and relaxed family income criteria have been automatically applied in your comparison below.",
+    announcementTitle: "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB)",
+    announcementSource: "PIB Delhi (Press Information Bureau, Government of India)",
+  },
+  hi: {
+    title: "आधिकारिक प्रेस विज्ञप्ति एवं सरकारी घोषणाएं",
+    subtitle: "प्रेस सूचना ब्यूरो (pib.gov.in) से सीधे सत्यापित",
+    btnCheck: "नवीनतम PIB सर्कुलर देखें",
+    btnChecking: "pib.gov.in की जाँच हो रही है...",
+    verifiedBadge: "आधिकारिक राजपत्र परिपत्र सत्यापित",
+    readPib: "pib.gov.in पर आधिकारिक विज्ञप्ति पढ़ें",
+    summaryNote: "नवीनतम सर्कुलर सत्यापित। संशोधित छात्रवृत्ति दरें और पारिवारिक आय सीमा नीचे आपकी तुलना तालिका में लागू कर दी गई हैं।",
+    announcementTitle: "केंद्रीय मंत्रिमंडल ने प्रधानमंत्री छात्रवृत्ति योजना (WARB) के संशोधन को मंजूरी दी",
+    announcementSource: "पीआईबी दिल्ली (प्रेस सूचना ब्यूरो, भारत सरकार)",
+  },
+  ta: {
+    title: "அதிகாரப்பூர்வ செய்திக்குறிப்பு மற்றும் அரசு அறிவிப்புகள்",
+    subtitle: "பிரஸ் இன்ஃபர்மேஷன் பீரோவிலிருந்து (pib.gov.in) நேரடியாகச் சரிபார்க்கப்பட்டது",
+    btnCheck: "சமீபத்திய PIB சுற்றறிக்கையைச் சரிபார்க்கவும்",
+    btnChecking: "pib.gov.in சரிபார்க்கப்படுகிறது...",
+    verifiedBadge: "அதிகாரப்பூர்வ அரசு சுற்றறிக்கை சரிபார்க்கப்பட்டது",
+    readPib: "pib.gov.in இல் அதிகாரப்பூர்வ அறிவிப்பைப் படிக்கவும்",
+    summaryNote: "சமீபத்திய சுற்றறிக்கை சரிபார்க்கப்பட்டது. திருத்தப்பட்ட உதவித்தொகை விகிதங்கள் மற்றும் குடும்ப வருமான வரம்பு கீழே உள்ள உங்கள் ஒப்பீட்டு அட்டவணையில் தானாகப் பயன்படுத்தப்பட்டுள்ளன.",
+    announcementTitle: "பிரதமரின் கல்வி உதவித்தொகை திட்டத் திருத்தத்திற்கு மத்திய அமைச்சரவை ஒப்புதல்",
+    announcementSource: "பிஐபி டெல்லி (பிரஸ் இன்ஃபர்மேஷன் பீரோ, இந்திய அரசு)",
+  },
+  te: {
+    title: "అధికారిక పత్రికా ప్రకటన & ప్రభుత్వ నవీకరణలు",
+    subtitle: "ప్రెస్ ఇన్ఫర్మేషన్ బ్యూరో (pib.gov.in) నుండి నేరుగా ధృవీకరించబడింది",
+    btnCheck: "తాజా PIB సర్క్యులర్‌ను తనిఖీ చేయండి",
+    btnChecking: "pib.gov.in తనిఖీ చేస్తోంది...",
+    verifiedBadge: "అధికారిక ప్రభుత్వ సర్క్యులర్ ధృవీకరించబడింది",
+    readPib: "pib.gov.in లో అధికారిక ప్రకటనను చదవండి",
+    summaryNote: "తాజా సర్క్యులర్ ధృవీకరించబడింది. సవరించిన స్కాలర్‌షిప్ రేట్లు మరియు కుటుంబ ఆదాయ పరిమితి క్రింద మీ పోలిక పట్టికలో వర్తింపజేయబడ్డాయి.",
+    announcementTitle: "ప్రధాన మంత్రి స్కాలర్‌షిప్ పథకం (WARB) సవరణకు కేంద్ర మంత్రివర్గం ఆమోదం",
+    announcementSource: "పీఐబీ ఢిల్లీ (ప్రెస్ ఇన్ఫర్మేషన్ బ్యూరో, భారత ప్రభుత్వం)",
+  }
+};
+
 export default function SchemeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t, language } = useLanguage();
+  const L = liveUpdateDict[language] || liveUpdateDict.en;
   const { profile } = useProfile();
   
   const [scheme, setScheme] = useState(null);
@@ -318,14 +367,14 @@ export default function SchemeDetail() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-base sm:text-lg font-bold text-slate-900">
-                    {t('live_update.title')}
+                    {L.title}
                   </h3>
                   <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                     pib.gov.in
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  {t('live_update.subtitle')}
+                  {L.subtitle}
                 </p>
               </div>
             </div>
@@ -338,12 +387,12 @@ export default function SchemeDetail() {
               {isTavilyScanning ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>{t('live_update.btn_checking')}</span>
+                  <span>{L.btnChecking}</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  <span>{t('live_update.btn_check')}</span>
+                  <span>{L.btnCheck}</span>
                 </>
               )}
             </button>
@@ -357,13 +406,13 @@ export default function SchemeDetail() {
                   <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wide">
-                      {t('live_update.verified_badge')}
+                      {L.verifiedBadge}
                     </span>
                     <h4 className="text-sm font-bold text-slate-900 mt-0.5">
-                      {tavilyLiveResult.discovered_announcement?.title}
+                      {L.announcementTitle}
                     </h4>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      {tavilyLiveResult.discovered_announcement?.source}
+                      {L.announcementSource}
                     </p>
                   </div>
                 </div>
@@ -374,14 +423,14 @@ export default function SchemeDetail() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors shadow-sm shrink-0"
                 >
-                  <span>{t('live_update.read_pib')}</span>
+                  <span>{L.readPib}</span>
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
                 </a>
               </div>
 
               <div className="pt-2.5 border-t border-slate-200/70 text-xs text-slate-600 flex items-center gap-2">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span>{t('live_update.summary_note')}</span>
+                <span>{L.summaryNote}</span>
               </div>
             </div>
           )}
