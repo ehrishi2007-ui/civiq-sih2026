@@ -31,7 +31,7 @@ ALLOWED_GOV_DOMAINS = [
 
 CANONICAL_PMSS_PIB_NOTIFICATION = {
     "title": "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB) for 2026-27",
-    "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=20260912",
+    "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=2110356",
     "published_date": "2026-09-10",
     "content": (
         "The Union Cabinet has approved significant revisions in the Prime Minister's Scholarship "

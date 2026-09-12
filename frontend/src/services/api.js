@@ -30,7 +30,7 @@ async function request(endpoint, options = {}) {
         scheme_name: "Prime Minister's Scholarship Scheme (WARB)",
         discovered_announcement: {
           title: "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB) for 2026-27",
-          url: 'https://pib.gov.in/PressReleasePage.aspx?PRID=20260912',
+          url: 'https://pib.gov.in/PressReleasePage.aspx?PRID=2110356',
           published_date: '2026-09-10',
           source: 'PIB Delhi (Press Information Bureau, Government of India)',
         },
