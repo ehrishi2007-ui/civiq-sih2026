@@ -19,7 +19,8 @@ import {
   FileText, 
   ShieldCheck,
   Radio,
-  Sparkles
+  Sparkles,
+  Globe
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -306,23 +307,25 @@ export default function SchemeDetail() {
         onSelectEvidence={setSelectedEvidence} 
       />
 
-      {/* Autonomous Continuous Policy Updation Engine (Tavily AI Drone) */}
+      {/* Live Official Government Gazette & Circular Updates */}
       {(['pm_scholarship_warb', 'pmss', 'pmsy'].includes(id?.toLowerCase()) || Boolean(scheme?.policy_diff)) && (
-        <div className="mt-8 mb-8 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-6 sm:p-8 shadow-xl border border-indigo-800">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-400">
-                <Radio className="w-5 h-5 animate-pulse" />
+        <div className="mt-8 mb-8 bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-emerald-100/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5 sm:mt-0">
+                <Globe className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-bold text-white">Autonomous Policy Freshness Engine</h3>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
-                    Tavily AI Drone
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                    {t('live_update.title')}
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    pib.gov.in
                   </span>
                 </div>
-                <p className="text-xs text-indigo-200 mt-0.5">
-                  Eliminates the 3–6 month portal delay by scanning Press Information Bureau (pib.gov.in)
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {t('live_update.subtitle')}
                 </p>
               </div>
             </div>
@@ -330,101 +333,62 @@ export default function SchemeDetail() {
             <button
               onClick={handleTavilyScan}
               disabled={isTavilyScanning}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 disabled:opacity-60 text-white text-xs font-bold transition-all shadow-md shadow-indigo-950/50"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white text-xs font-bold transition-all shadow-sm shrink-0"
             >
               {isTavilyScanning ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Scanning Official Gov.in...</span>
+                  <span>{t('live_update.btn_checking')}</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  <span>Scan Official Gov.in (Live Ingest)</span>
+                  <span>{t('live_update.btn_check')}</span>
                 </>
               )}
             </button>
           </div>
 
-          {/* Live Ingestion Result Card */}
+          {/* Clean Verified Official Announcement Banner */}
           {tavilyLiveResult && (
-            <div className="bg-slate-800/80 backdrop-blur rounded-xl border border-indigo-500/30 p-5 mt-4 space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
-                <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-400">
-                    Discovered Notification
-                  </span>
-                  <h4 className="text-sm font-bold text-white mt-0.5">
-                    {tavilyLiveResult.discovered_announcement?.title}
-                  </h4>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Source: {tavilyLiveResult.discovered_announcement?.source}
-                  </p>
+            <div className="mt-5 p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wide">
+                      {t('live_update.verified_badge')}
+                    </span>
+                    <h4 className="text-sm font-bold text-slate-900 mt-0.5">
+                      {tavilyLiveResult.discovered_announcement?.title}
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      {tavilyLiveResult.discovered_announcement?.source}
+                    </p>
+                  </div>
                 </div>
+
                 <a
                   href={tavilyLiveResult.discovered_announcement?.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600/30 text-indigo-300 border border-indigo-400/30 text-xs font-semibold hover:bg-indigo-600/50 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors shadow-sm shrink-0"
                 >
-                  <span>View Gazette on pib.gov.in</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>{t('live_update.read_pib')}</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
                 </a>
               </div>
 
-              {/* Citizen Eligibility Flip Banner */}
-              {tavilyLiveResult.citizen_impact?.eligibility_flipped && (
-                <div className="bg-emerald-950/60 border border-emerald-500/40 rounded-lg p-3.5 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
-                    <div>
-                      <p className="text-xs font-bold text-emerald-300">
-                        Eligibility Status Flipped: <span className="line-through opacity-70">NOT_ELIGIBLE</span> ➔ <span className="underline">ELIGIBLE</span>!
-                      </p>
-                      <p className="text-[11px] text-emerald-200/80 mt-0.5">
-                        {tavilyLiveResult.citizen_impact?.citizen_alert}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <span className="text-[10px] uppercase text-emerald-300 font-bold block">Annual Gain</span>
-                    <span className="text-sm font-extrabold text-emerald-400">+₹{tavilyLiveResult.citizen_impact?.annual_financial_gain?.toLocaleString('en-IN')}/yr</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Extracted Parameter Changes */}
-              <div>
-                <h5 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                  Parameters Auto-Extracted via Gemini 3.5 Flash Lite
-                </h5>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {(tavilyLiveResult.policy_diff?.changes || []).map((ch, idx) => (
-                    <div key={idx} className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/50">
-                      <p className="text-xs font-semibold text-slate-300">{ch.parameter}</p>
-                      <p className="text-[11px] text-slate-400 mt-1">
-                        <span className="line-through">{ch.old_value}</span> ➔ <span className="text-indigo-300 font-bold">{ch.new_value}</span>
-                      </p>
-                      <span className="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">
-                        {ch.impact_tag}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] text-slate-400">
-                <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-indigo-400" />
-                  <span>Authority: {tavilyLiveResult.evaluator_authority}</span>
-                </span>
-                <span className="text-emerald-400 font-medium">Zero Hallucination Guarantee</span>
+              <div className="pt-2.5 border-t border-slate-200/70 text-xs text-slate-600 flex items-center gap-2">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span>{t('live_update.summary_note')}</span>
               </div>
             </div>
           )}
         </div>
       )}
 
+      {/* Policy Change Diffs & Impact — Verified Revisions */}
       {/* Policy Change Diffs & Impact — Verified Revisions */}
       {comparison && comparison.verified && comparison.changes && comparison.changes.length > 0 && (
         <div className="mt-12 mb-8">

@@ -1,5 +1,12 @@
 const translations = {
   "en": {
+    "live_update.title": "Official Press Release & Gazette Updates",
+    "live_update.subtitle": "Directly verified against the Press Information Bureau (pib.gov.in)",
+    "live_update.btn_check": "Check for Latest PIB Circulars",
+    "live_update.btn_checking": "Checking pib.gov.in...",
+    "live_update.verified_badge": "Official Gazette Circular Verified",
+    "live_update.read_pib": "Read Official Announcement on pib.gov.in",
+    "live_update.summary_note": "Latest circular verified. The revised stipend rates and relaxed family income criteria have been automatically applied in your comparison below.",
     "nav.home": "Home",
     "nav.profile": "Profile",
     "nav.dashboard": "Dashboard",
