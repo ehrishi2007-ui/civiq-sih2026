@@ -88,7 +88,10 @@ class PolicyAutoUpdater:
         eval_before = evaluate_eligibility(profile, scheme)
 
         # 2. Ingest breaking policy announcement via Tavily
-        updates = self.tracker.search_policy_updates(scheme.get("name", "PM Scholarship"))
+        updates = self.tracker.search_policy_updates(
+            scheme_name=scheme.get("name", "PM Scholarship"),
+            scheme_id=scheme_id,
+        )
         latest_doc = updates[0] if updates else {}
 
         # 3. Extract parameter differences

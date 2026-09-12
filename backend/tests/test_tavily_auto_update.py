@@ -80,3 +80,33 @@ def test_api_policy_freshness_feed_endpoint():
     data = response.json()
     assert data["count"] >= 1
     assert "Autonomous Tavily" in data["source"]
+
+
+def test_scheme_specific_pib_notifications():
+    tracker = TavilyPolicyTracker()
+    
+    # PM-KISAN
+    kisan_res = tracker.search_policy_updates(scheme_name="PM-KISAN", scheme_id="pm_kisan")
+    assert len(kisan_res) >= 1
+    assert "2242295" in kisan_res[0]["url"]
+    assert "pm-kisan" in kisan_res[0]["title"].lower() or "instalment" in kisan_res[0]["title"].lower()
+
+    # PMEGP
+    pmegp_res = tracker.search_policy_updates(scheme_name="PMEGP", scheme_id="pmegp")
+    assert len(pmegp_res) >= 1
+    assert "2079789" in pmegp_res[0]["url"]
+
+    # APY
+    apy_res = tracker.search_policy_updates(scheme_name="APY", scheme_id="apy")
+    assert len(apy_res) >= 1
+    assert "2204271" in apy_res[0]["url"]
+
+    # Stand-Up India
+    standup_res = tracker.search_policy_updates(scheme_name="Stand-Up India", scheme_id="standup_india")
+    assert len(standup_res) >= 1
+    assert "standupmitra.in" in standup_res[0]["url"]
+
+    # PMSS
+    pmss_res = tracker.search_policy_updates(scheme_name="PMSS", scheme_id="pm_scholarship_warb")
+    assert len(pmss_res) >= 1
+    assert "2110356" in pmss_res[0]["url"]

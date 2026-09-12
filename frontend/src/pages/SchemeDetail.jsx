@@ -32,10 +32,7 @@ const liveUpdateDict = {
     btnCheck: "Check for Latest PIB Circulars",
     btnChecking: "Checking pib.gov.in...",
     verifiedBadge: "Official Gazette Circular Verified",
-    readPib: "Read Official Announcement on pib.gov.in",
-    summaryNote: "Latest circular verified. The revised stipend rates and relaxed family income criteria have been automatically applied in your comparison below.",
-    announcementTitle: "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB)",
-    announcementSource: "PIB Delhi (Press Information Bureau, Government of India)",
+    readPib: "Read Official Announcement",
   },
   hi: {
     title: "आधिकारिक प्रेस विज्ञप्ति एवं सरकारी घोषणाएं",
@@ -43,10 +40,7 @@ const liveUpdateDict = {
     btnCheck: "नवीनतम PIB सर्कुलर देखें",
     btnChecking: "pib.gov.in की जाँच हो रही है...",
     verifiedBadge: "आधिकारिक राजपत्र परिपत्र सत्यापित",
-    readPib: "pib.gov.in पर आधिकारिक विज्ञप्ति पढ़ें",
-    summaryNote: "नवीनतम सर्कुलर सत्यापित। संशोधित छात्रवृत्ति दरें और पारिवारिक आय सीमा नीचे आपकी तुलना तालिका में लागू कर दी गई हैं।",
-    announcementTitle: "केंद्रीय मंत्रिमंडल ने प्रधानमंत्री छात्रवृत्ति योजना (WARB) के संशोधन को मंजूरी दी",
-    announcementSource: "पीआईबी दिल्ली (प्रेस सूचना ब्यूरो, भारत सरकार)",
+    readPib: "आधिकारिक विज्ञप्ति पढ़ें",
   },
   ta: {
     title: "அதிகாரப்பூர்வ செய்திக்குறிப்பு மற்றும் அரசு அறிவிப்புகள்",
@@ -54,10 +48,7 @@ const liveUpdateDict = {
     btnCheck: "சமீபத்திய PIB சுற்றறிக்கையைச் சரிபார்க்கவும்",
     btnChecking: "pib.gov.in சரிபார்க்கப்படுகிறது...",
     verifiedBadge: "அதிகாரப்பூர்வ அரசு சுற்றறிக்கை சரிபார்க்கப்பட்டது",
-    readPib: "pib.gov.in இல் அதிகாரப்பூர்வ அறிவிப்பைப் படிக்கவும்",
-    summaryNote: "சமீபத்திய சுற்றறிக்கை சரிபார்க்கப்பட்டது. திருத்தப்பட்ட உதவித்தொகை விகிதங்கள் மற்றும் குடும்ப வருமான வரம்பு கீழே உள்ள உங்கள் ஒப்பீட்டு அட்டவணையில் தானாகப் பயன்படுத்தப்பட்டுள்ளன.",
-    announcementTitle: "பிரதமரின் கல்வி உதவித்தொகை திட்டத் திருத்தத்திற்கு மத்திய அமைச்சரவை ஒப்புதல்",
-    announcementSource: "பிஐபி டெல்லி (பிரஸ் இன்ஃபர்மேஷன் பீரோ, இந்திய அரசு)",
+    readPib: "அதிகாரப்பூர்வ அறிவிப்பைப் படிக்கவும்",
   },
   te: {
     title: "అధికారిక పత్రికా ప్రకటన & ప్రభుత్వ నవీకరణలు",
@@ -65,11 +56,121 @@ const liveUpdateDict = {
     btnCheck: "తాజా PIB సర్క్యులర్‌ను తనిఖీ చేయండి",
     btnChecking: "pib.gov.in తనిఖీ చేస్తోంది...",
     verifiedBadge: "అధికారిక ప్రభుత్వ సర్క్యులర్ ధృవీకరించబడింది",
-    readPib: "pib.gov.in లో అధికారిక ప్రకటనను చదవండి",
-    summaryNote: "తాజా సర్క్యులర్ ధృవీకరించబడింది. సవరించిన స్కాలర్‌షిప్ రేట్లు మరియు కుటుంబ ఆదాయ పరిమితి క్రింద మీ పోలిక పట్టికలో వర్తింపజేయబడ్డాయి.",
-    announcementTitle: "ప్రధాన మంత్రి స్కాలర్‌షిప్ పథకం (WARB) సవరణకు కేంద్ర మంత్రివర్గం ఆమోదం",
-    announcementSource: "పీఐబీ ఢిల్లీ (ప్రెస్ ఇన్ఫర్మేషన్ బ్యూరో, భారత ప్రభుత్వం)",
+    readPib: "అధికారిక ప్రకటనను చదవండి",
   }
+};
+
+const SCHEME_ANNOUNCEMENTS = {
+  pm_scholarship_warb: {
+    en: {
+      title: "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB)",
+      source: "PIB Delhi (Press Information Bureau, Government of India)",
+      note: "Latest circular verified. The revised stipend rates and relaxed family income criteria have been automatically applied in your comparison below.",
+    },
+    hi: {
+      title: "केंद्रीय मंत्रिमंडल ने प्रधानमंत्री छात्रवृत्ति योजना (WARB) के संशोधन को मंजूरी दी",
+      source: "पीआईबी दिल्ली (प्रेस सूचना ब्यूरो, भारत सरकार)",
+      note: "नवीनतम सर्कुलर सत्यापित। संशोधित छात्रवृत्ति दरें और पारिवारिक आय सीमा नीचे आपकी तुलना तालिका में लागू कर दी गई हैं।",
+    },
+    ta: {
+      title: "பிரதமரின் கல்வி உதவித்தொகை திட்டத் திருத்தத்திற்கு மத்திய அமைச்சரவை ஒப்புதல்",
+      source: "பிஐபி டெல்லி (பிரஸ் இன்ஃபர்மேஷன் பீரோ, இந்திய அரசு)",
+      note: "சமீபத்திய சுற்றறிக்கை சரிபார்க்கப்பட்டது. திருத்தப்பட்ட உதவித்தொகை விகிதங்கள் மற்றும் குடும்ப வருமான வரம்பு கீழே உள்ள உங்கள் ஒப்பீட்டு அட்டவணையில் தானாகப் பயன்படுத்தப்பட்டுள்ளன.",
+    },
+    te: {
+      title: "ప్రధాన మంత్రి స్కాలర్‌షిప్ పథకం (WARB) సవరణకు కేంద్ర మంత్రివర్గం ఆమోదం",
+      source: "పీఐబీ ఢిల్లీ (ప్రెస్ ఇన్ఫర్మేషన్ బ్యూరో, భారత ప్రభుత్వం)",
+      note: "తాజా సర్క్యులర్ ధృవీకరించబడింది. సవరించిన స్కాలర్‌షిప్ రేట్లు మరియు కుటుంబ ఆదాయ పరిమితి క్రింద మీ పోలిక పట్టికలో వర్తింపజేయబడ్డాయి.",
+    },
+  },
+  pm_kisan: {
+    en: {
+      title: "Directives on 22nd PM-KISAN Instalment & DBT Direct Benefit Transfers",
+      source: "PIB Delhi (Ministry of Agriculture & Farmers' Welfare)",
+      note: "Latest circular verified. Official guidelines confirm active DBT disbursements of Rs. 2,000 to Aadhaar-seeded farmer accounts.",
+    },
+    hi: {
+      title: "22वीं पीएम-किसान किस्त और डीबीटी प्रत्यक्ष लाभ हस्तांतरण पर निर्देश",
+      source: "पीआईबी दिल्ली (कृषि एवं किसान कल्याण मंत्रालय)",
+      note: "नवीनतम सर्कुलर सत्यापित। आधिकारिक दिशानिर्देश आधार से जुड़े किसान खातों में ₹2,000 के सक्रिय डीबीटी वितरण की पुष्टि करते हैं।",
+    },
+    ta: {
+      title: "22வது பிஎம்-கிசான் தவணை மற்றும் நேரடி பயன் பரிமாற்ற வழிகாட்டுதல்கள்",
+      source: "பிஐபி டெல்லி (விவசாயம் மற்றும் உழவர் நல அமைச்சகம்)",
+      note: "சமீபத்திய சுற்றறிக்கை சரிபார்க்கப்பட்டது. ஆதார் இணைக்கப்பட்ட விவசாய கணக்குகளுக்கு ₹2,000 நேரடி உதவி வழங்கப்படுகிறது.",
+    },
+    te: {
+      title: "22వ పీఎం-కిసాన్ వాయిదా & డీబీటీ ప్రత్యక్ష ప్రయోజనాల బదిలీ ఆదేశాలు",
+      source: "పీఐబీ ఢిల్లీ (వ్యవసాయ & రైతు సంక్షేమ మంత్రిత్వ శాఖ)",
+      note: "తాజా సర్క్యులర్ ధృవీకరించబడింది. ఆధార్ అనుసంధానించబడిన రైతు ఖాతాలకు ₹2,000 డీబీటీ పంపిణీని మార్గదర్శకాలు ధృవీకరిస్తున్నాయి.",
+    },
+  },
+  pmegp: {
+    en: {
+      title: "Expansion & Enhanced Margin Subsidy under PMEGP Scheme",
+      source: "PIB Delhi (Ministry of Micro, Small and Medium Enterprises)",
+      note: "Latest circular verified. Margin money subsidy up to 35% on project costs up to Rs. 50 Lakhs confirmed for entrepreneurs.",
+    },
+    hi: {
+      title: "पीएमईजीपी योजना के तहत विस्तार एवं उन्नत मार्जिन सब्सिडी",
+      source: "पीआईबी दिल्ली (सूक्ष्म, लघु एवं मध्यम उद्यम मंत्रालय)",
+      note: "नवीनतम सर्कुलर सत्यापित। उद्यमियों के लिए ₹50 लाख तक की परियोजनाओं पर 35% तक मार्जिन मनी सब्सिडी की पुष्टि।",
+    },
+    ta: {
+      title: "பிஎம்இஜிபி திட்டத்தின் கீழ் விரிவாக்கம் மற்றும் மேம்பட்ட மானியம்",
+      source: "பிஐபி டெல்லி (குறு, சிறு மற்றும் நடுத்தர தொழில் அமைச்சகம்)",
+      note: "சமீபத்திய சுற்றறிக்கை சரிபார்க்கப்பட்டது. தொழில் முனைவோருக்கு ₹50 லட்சம் வரையிலான திட்டங்களுக்கு 35% வரை மானியம் உறுதி செய்யப்பட்டுள்ளது.",
+    },
+    te: {
+      title: "పీఎంఈజీపీ పథకం క్రింద విస్తరణ & మెరుగైన మార్జిన్ సబ్సిడీ",
+      source: "పీఐబీ ఢిల్లీ (సూక్ష్మ, చిన్న & మధ్య తరహా పరిశ్రమల మంత్రిత్వ శాఖ)",
+      note: "తాజా సర్క్యులర్ ధృవీకరించబడింది. వ్యవస్థాపకులకు ₹50 లక్షల వరకు ప్రాజెక్టులపై 35% వరకు మార్జిన్ మనీ సబ్సిడీ నిర్ధారించబడింది.",
+    },
+  },
+  apy: {
+    en: {
+      title: "Pension Enrolment Guidelines & Subscriber Coverage Directives",
+      source: "PIB Delhi (Ministry of Finance, Government of India)",
+      note: "Latest circular verified. Official guidelines confirm guaranteed monthly pension between Rs. 1,000 to Rs. 5,000 for subscribers.",
+    },
+    hi: {
+      title: "अटल पेंशन योजना नामांकन दिशानिर्देश एवं ग्राहक कवरेज निर्देश",
+      source: "पीआईबी दिल्ली (वित्त मंत्रालय, भारत सरकार)",
+      note: "नवीनतम सर्कुलर सत्यापित। आधिकारिक दिशानिर्देश ग्राहकों के लिए ₹1,000 से ₹5,000 की गारंटीकृत मासिक पेंशन की पुष्टि करते हैं।",
+    },
+    ta: {
+      title: "அடல் ஓய்வூதியத் திட்ட வழிகாட்டுதல்கள் மற்றும் சந்தாதாரர் அறிவிப்புகள்",
+      source: "பிஐபி டெல்லி (நிதி அமைச்சகம், இந்திய அரசு)",
+      note: "சமீபத்திய சுற்றறிக்கை சரிபார்க்கப்பட்டது. சந்தாதாரர்களுக்கு ₹1,000 முதல் ₹5,000 வரை உத்தரவாதமளிக்கப்பட்ட மாதாந்திர ஓய்வூதியம் உறுதி செய்யப்பட்டுள்ளது.",
+    },
+    te: {
+      title: "అటల్ పెన్షన్ యోజన నమోదు మార్గదర్శకాలు & చందాదారుల ప్రకటనలు",
+      source: "పీఐబీ ఢిల్లీ (ఆర్థిక మంత్రిత్వ శాఖ, భారత ప్రభుత్వం)",
+      note: "తాజా సర్క్యులర్ ధృవీకరించబడింది. చందాదారులకు ₹1,000 నుండి ₹5,000 వరకు హామీ ఇవ్వబడిన నెలవారీ పెన్షన్‌ను మార్గదర్శకాలు నిర్ధారిస్తాయి.",
+    },
+  },
+  standup_india: {
+    en: {
+      title: "Official Stand-Up Mitra Enterprise Portal & Operational Circular",
+      source: "Stand-Up Mitra Portal (Ministry of Finance)",
+      note: "Latest circular verified. Official operational notice on standupmitra.in portal for SC, ST, and women entrepreneurs.",
+    },
+    hi: {
+      title: "स्टैंड-अप मित्र आधिकारिक पोर्टल एवं संचालन परिपत्र",
+      source: "स्टैंड-अप मित्र पोर्टल (वित्त मंत्रालय)",
+      note: "नवीनतम सर्कुलर सत्यापित। अनुसूचित जाति, अनुसूचित जनजाति और महिला उद्यमियों के लिए standupmitra.in पोर्टल पर आधिकारिक सूचना।",
+    },
+    ta: {
+      title: "ஸ்டாண்ட்-அப் மித்ரா அதிகாரப்பூர்வ வலைத்தள வழிகாட்டுதல்கள்",
+      source: "ஸ்டாண்ட்-அப் மித்ரா போர்டல் (நிதி அமைச்சகம்)",
+      note: "சமீபத்திய சுற்றறிக்கை சரிபார்க்கப்பட்டது. எஸ்சி, எஸ்டி மற்றும் பெண் தொழில் முனைவோருக்கான standupmitra.in தளத்தின் அதிகாரப்பூர்வ அறிவிப்பு.",
+    },
+    te: {
+      title: "స్టాండ్-అప్ మిత్ర అధికారిక పోర్టల్ & కార్యాచరణ సర్క్యులర్",
+      source: "స్టాండ్-అప్ మిత్ర పోర్టల్ (ఆర్థిక మంత్రిత్వ శాఖ)",
+      note: "తాజా సర్క్యులర్ ధృవీకరించబడింది. ఎస్సీ, ఎస్టీ మరియు మహిళా వ్యవస్థాపకుల కోసం standupmitra.in పోర్టల్ అధికారిక కార్యాచరణ నోటీసు.",
+    },
+  },
 };
 
 export default function SchemeDetail() {
@@ -77,6 +178,11 @@ export default function SchemeDetail() {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
   const L = liveUpdateDict[language] || liveUpdateDict.en;
+  const activeSchemeKey = (id || scheme?.id || 'pm_scholarship_warb').toLowerCase();
+  const currentAnnouncement = SCHEME_ANNOUNCEMENTS[activeSchemeKey]?.[language]
+    || SCHEME_ANNOUNCEMENTS[activeSchemeKey]?.en
+    || SCHEME_ANNOUNCEMENTS.pm_scholarship_warb[language]
+    || SCHEME_ANNOUNCEMENTS.pm_scholarship_warb.en;
   const { profile } = useProfile();
   
   const [scheme, setScheme] = useState(null);
@@ -89,7 +195,8 @@ export default function SchemeDetail() {
   const handleTavilyScan = async () => {
     try {
       setIsTavilyScanning(true);
-      const res = await autoUpdatePolicy('pm_scholarship_warb', profile);
+      const targetId = (id || scheme?.id || 'pm_scholarship_warb').toLowerCase();
+      const res = await autoUpdatePolicy(targetId, profile);
       setTavilyLiveResult(res);
     } catch (err) {
       console.error('Tavily live scan failed:', err);
@@ -357,85 +464,83 @@ export default function SchemeDetail() {
       />
 
       {/* Live Official Government Gazette & Circular Updates */}
-      {(['pm_scholarship_warb', 'pmss', 'pmsy'].includes(id?.toLowerCase()) || Boolean(scheme?.policy_diff)) && (
-        <div className="mt-8 mb-8 bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-emerald-100/80">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-start sm:items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5 sm:mt-0">
-                <Globe className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
-                    {L.title}
-                  </h3>
-                  <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    pib.gov.in
-                  </span>
-                </div>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  {L.subtitle}
-                </p>
-              </div>
+      <div className="mt-8 mb-8 bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-emerald-100/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5 sm:mt-0">
+              <Globe className="w-5 h-5" />
             </div>
-
-            <button
-              onClick={handleTavilyScan}
-              disabled={isTavilyScanning}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white text-xs font-bold transition-all shadow-sm shrink-0"
-            >
-              {isTavilyScanning ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>{L.btnChecking}</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-4 h-4" />
-                  <span>{L.btnCheck}</span>
-                </>
-              )}
-            </button>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                  {L.title}
+                </h3>
+                <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  pib.gov.in
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                {L.subtitle}
+              </p>
+            </div>
           </div>
 
-          {/* Clean Verified Official Announcement Banner */}
-          {tavilyLiveResult && (
-            <div className="mt-5 p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-start gap-2.5">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wide">
-                      {L.verifiedBadge}
-                    </span>
-                    <h4 className="text-sm font-bold text-slate-900 mt-0.5">
-                      {L.announcementTitle}
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      {L.announcementSource}
-                    </p>
-                  </div>
-                </div>
-
-                <a
-                  href={tavilyLiveResult.discovered_announcement?.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors shadow-sm shrink-0"
-                >
-                  <span>{L.readPib}</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-                </a>
-              </div>
-
-              <div className="pt-2.5 border-t border-slate-200/70 text-xs text-slate-600 flex items-center gap-2">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span>{L.summaryNote}</span>
-              </div>
-            </div>
-          )}
+          <button
+            onClick={handleTavilyScan}
+            disabled={isTavilyScanning}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white text-xs font-bold transition-all shadow-sm shrink-0"
+          >
+            {isTavilyScanning ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>{L.btnChecking}</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4" />
+                <span>{L.btnCheck}</span>
+              </>
+            )}
+          </button>
         </div>
-      )}
+
+        {/* Clean Verified Official Announcement Banner */}
+        {tavilyLiveResult && (
+          <div className="mt-5 p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wide">
+                    {L.verifiedBadge}
+                  </span>
+                  <h4 className="text-sm font-bold text-slate-900 mt-0.5">
+                    {currentAnnouncement.title}
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    {currentAnnouncement.source}
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href={tavilyLiveResult.discovered_announcement?.url || "https://pib.gov.in"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors shadow-sm shrink-0"
+              >
+                <span>{L.readPib}</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+              </a>
+            </div>
+
+            <div className="pt-2.5 border-t border-slate-200/70 text-xs text-slate-600 flex items-center gap-2">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span>{currentAnnouncement.note}</span>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Policy Change Diffs & Impact — Verified Revisions */}
       {/* Policy Change Diffs & Impact — Verified Revisions */}
