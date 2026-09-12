@@ -1,3 +1,4 @@
+import logoImg from '../assets/logo.jpeg';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { Home, User, LayoutDashboard, MessageCircleQuestion, ShieldQuestion } from 'lucide-react';
@@ -21,11 +22,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
-            <Link to="/" className="flex-shrink-0 flex items-center gap-2">
-              <div className="w-8 h-8 bg-civiq-600 rounded flex items-center justify-center">
-                <span className="text-white font-bold text-xl">C</span>
-              </div>
-              <span className="font-bold text-xl text-slate-900 tracking-tight">CiviQ</span>
+            <Link to="/" className="flex-shrink-0 flex items-center gap-2.5 py-1">
+              <img src={logoImg} alt="CiviQ Logo" className="h-9 sm:h-10 w-auto object-contain" />
             </Link>
             <div className="hidden sm:ml-8 sm:flex sm:space-x-8">
               {navItems.map((item) => {

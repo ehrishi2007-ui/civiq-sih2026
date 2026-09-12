@@ -1,3 +1,4 @@
+import logoImg from '../assets/logo.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { ShieldCheck, BrainCircuit, FileSearch, HelpCircle } from 'lucide-react';
@@ -39,9 +40,9 @@ export default function Home() {
         
         {/* Hero Section */}
         <div className="space-y-4">
-          <div className="inline-flex items-center justify-center p-3 bg-civiq-100 rounded-2xl mb-4">
-            <div className="w-12 h-12 bg-civiq-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-3xl">C</span>
+          <div className="flex justify-center mb-6">
+            <div className="p-3 sm:p-4 bg-white rounded-3xl shadow-sm border border-slate-200/80 inline-flex items-center justify-center">
+              <img src={logoImg} alt="CiviQ - Empowering Every Citizen" className="h-24 sm:h-32 md:h-36 w-auto object-contain" />
             </div>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
