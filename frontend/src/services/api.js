@@ -29,14 +29,14 @@ async function request(endpoint, options = {}) {
         scheme_id: 'pm_scholarship_warb',
         scheme_name: "Prime Minister's Scholarship Scheme (WARB)",
         discovered_announcement: {
-          title: "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB) for 2026-27",
+          title: "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB) for 2024-25",
           url: 'https://pib.gov.in/PressReleasePage.aspx?PRID=2110356',
-          published_date: '2026-09-10',
+          published_date: '2025-03-11',
           source: 'PIB Delhi (Press Information Bureau, Government of India)',
         },
         policy_diff: {
           has_changes: true,
-          version_year: '2026-27',
+          version_year: '2024-25',
           summary: 'Union Cabinet approved stipend hike for girl and boy scholars and relaxed income ceiling.',
           changes: [
             {
@@ -71,7 +71,7 @@ async function request(endpoint, options = {}) {
           eligibility_flipped: true,
           annual_financial_gain: 7200,
           total_new_annual_benefit: 43200,
-          citizen_alert: '[BREAKING UPDATE] Cabinet approved 2026-27 PMSS revision! Your eligibility flipped from NOT_ELIGIBLE to ELIGIBLE. You are newly entitled to Rs. 43,200/year (+Rs. 7,200/yr gain).'
+          citizen_alert: '[BREAKING UPDATE] Cabinet approved 2024-25 PMSS revision! Your eligibility flipped from NOT_ELIGIBLE to ELIGIBLE. You are newly entitled to Rs. 43,200/year (+Rs. 7,200/yr gain).'
         },
         evaluator_authority: 'Pure Python evaluator.py (Zero LLM Hallucination)'
       };

@@ -25,7 +25,7 @@ export default function DiffTable({ changes }) {
           <tbody className="divide-y divide-slate-100">
             {changes.map((change, idx) => (
               <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                <td className="px-5 py-3 font-medium text-slate-900">{change.field}</td>
+                <td className="px-5 py-3 font-medium text-slate-900">{change.parameter || change.field}</td>
                 <td className="px-5 py-3 text-slate-500 line-through decoration-slate-300">{change.old_value}</td>
                 <td className="px-5 py-3 font-medium text-slate-900">{change.new_value}</td>
                 <td className="px-5 py-3">

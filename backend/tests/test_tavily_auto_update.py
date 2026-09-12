@@ -40,7 +40,7 @@ def test_tavily_tracker_discovery_and_diff():
 
     diff = tracker.extract_policy_diff(results[0]["content"])
     assert diff["has_changes"] is True
-    assert diff["version_year"] == "2026-27"
+    assert diff["version_year"] == "2024-25"
     assert len(diff["changes"]) >= 2
     parameters = [c["parameter"] for c in diff["changes"]]
     assert any("Girls" in p for p in parameters)

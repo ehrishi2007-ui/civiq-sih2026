@@ -30,13 +30,13 @@ ALLOWED_GOV_DOMAINS = [
 ]
 
 CANONICAL_PMSS_PIB_NOTIFICATION = {
-    "title": "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB) for 2026-27",
+    "title": "Cabinet Approves Revision of Prime Minister's Scholarship Scheme (WARB) for 2024-25",
     "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=2110356",
-    "published_date": "2026-09-10",
+    "published_date": "2025-03-11",
     "content": (
         "The Union Cabinet has approved significant revisions in the Prime Minister's Scholarship "
         "Scheme for wards of Central Armed Police Forces (CAPFs) and Assam Rifles personnel. "
-        "Under the revised 2026-27 guidelines, the monthly scholarship stipend for girl students "
+        "Under the revised 2024-25 guidelines, the monthly scholarship stipend for girl students "
         "is increased from Rs. 3,000/- per month to Rs. 3,600/- per month (Rs. 43,200 annually, "
         "an increase of Rs. 7,200/year). For boy students, the stipend is increased from "
         "Rs. 2,500/- per month to Rs. 3,000/- per month (Rs. 36,000 annually, an increase of Rs. 6,000/year). "
@@ -174,7 +174,7 @@ TASKS:
 3. Return valid JSON matching this schema:
 {{
     "has_changes": true,
-    "version_year": "2026-27",
+    "version_year": "2024-25",
     "summary": "Brief summary of approved revisions",
     "changes": [
         {{
@@ -245,7 +245,7 @@ TASKS:
 
         return {
             "has_changes": len(changes) > 0,
-            "version_year": "2026-27",
+            "version_year": "2024-25",
             "summary": "Union Cabinet approved stipend hike for girl and boy scholars and relaxed income ceiling.",
             "changes": changes,
         }

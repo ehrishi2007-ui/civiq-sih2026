@@ -99,9 +99,9 @@ class PolicyAutoUpdater:
         for criterion in updated_scheme.get("criteria", []):
             if criterion.get("field") == "annual_income":
                 criterion["expected_value"] = 800000
-                criterion["label"] = "Annual Family Income <= Rs. 8,00,000 (Revised 2026-27 Guidelines)"
+                criterion["label"] = "Annual Family Income <= Rs. 8,00,000 (Revised 2024-25 Guidelines)"
                 if "citation" in criterion and isinstance(criterion["citation"], dict):
-                    criterion["citation"]["doc_name"] = "PIB Delhi Notification 2026-27"
+                    criterion["citation"]["doc_name"] = "PIB Delhi Notification 2024-25"
                     criterion["citation"]["quote"] = "Income limit relaxed to Rs 8 Lakhs per annum."
 
         # 5. Deterministic re-evaluation against updated rules
@@ -123,7 +123,7 @@ class PolicyAutoUpdater:
         flipped_to_eligible = (status_before != "ELIGIBLE" and status_after == "ELIGIBLE")
 
         alert_message = (
-            f"[BREAKING UPDATE] Cabinet approved 2026-27 PMSS revision! "
+            f"[BREAKING UPDATE] Cabinet approved 2024-25 PMSS revision! "
             f"Your eligibility flipped from {status_before} to {status_after}. "
             f"You are newly entitled to Rs. {new_annual_stipend:,}/year (+Rs. {annual_benefit_gain:,}/yr gain)."
             if flipped_to_eligible

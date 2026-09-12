@@ -26,7 +26,7 @@ import clsx from 'clsx';
 const liveUpdateDict = {
   en: {
     sectionTitle: "Official Policy Updates & Comparison",
-    versionTag: "2023-24 Guidelines vs 2026-27 Notification",
+    versionTag: "2023-24 Guidelines vs 2024-25 Notification",
     verifiedBadge: "Verified Guidelines",
     btnCheck: "Check Latest PIB Updates",
     btnChecking: "Checking pib.gov.in...",
@@ -39,11 +39,11 @@ const liveUpdateDict = {
     eligibilityFlipTitle: "Good News! You are newly eligible under revised guidelines",
     eligibilityFlipDesc: "The annual family income ceiling has been relaxed from ₹6,00,000 to ₹8,00,000, bringing your application into eligibility.",
     annualGain: "Extra Annual Benefit",
-    conservativeNotice: "Direct comparison between official 2023-24 circular and revised 2026-27 notification.",
+    conservativeNotice: "Direct comparison between official 2023-24 circular and revised 2024-25 notification.",
   },
   hi: {
     sectionTitle: "आधिकारिक नीति अपडेट एवं तुलना",
-    versionTag: "2023-24 दिशानिर्देश बनाम 2026-27 अधिसूचना",
+    versionTag: "2023-24 दिशानिर्देश बनाम 2024-25 अधिसूचना",
     verifiedBadge: "सत्यापित आधिकारिक दिशानिर्देश",
     btnCheck: "नवीनतम PIB अपडेट देखें",
     btnChecking: "pib.gov.in की जाँच हो रही है...",
@@ -56,11 +56,11 @@ const liveUpdateDict = {
     eligibilityFlipTitle: "शुभ समाचार! आप नए दिशानिर्देशों के तहत पात्र हैं",
     eligibilityFlipDesc: "वार्षिक पारिवारिक आय सीमा ₹6,00,000 से बढ़ाकर ₹8,00,000 कर दी गई है, जिससे आप पात्र हो गए हैं।",
     annualGain: "अतिरिक्त वार्षिक लाभ",
-    conservativeNotice: "आधिकारिक 2023-24 परिपत्र और संशोधित 2026-27 अधिसूचना के बीच सीधा सत्यापन।",
+    conservativeNotice: "आधिकारिक 2023-24 परिपत्र और संशोधित 2024-25 अधिसूचना के बीच सीधा सत्यापन।",
   },
   ta: {
     sectionTitle: "அதிகாரப்பூர்வ கொள்கை அறிவிப்புகள் மற்றும் ஒப்பீடு",
-    versionTag: "2023-24 வழிகாட்டுதல்கள் vs 2026-27 அறிவிப்பு",
+    versionTag: "2023-24 வழிகாட்டுதல்கள் vs 2024-25 அறிவிப்பு",
     verifiedBadge: "சரிபார்க்கப்பட்ட வழிகாட்டுதல்கள்",
     btnCheck: "சமீபத்திய PIB அறிவிப்புகளைச் சரிபார்க்கவும்",
     btnChecking: "pib.gov.in சரிபார்க்கப்படுகிறது...",
@@ -73,11 +73,11 @@ const liveUpdateDict = {
     eligibilityFlipTitle: "நற்செய்தி! திருத்தப்பட்ட விதிகளின் கீழ் நீங்கள் தகுதியுடையவர்",
     eligibilityFlipDesc: "குடும்ப வருமான வரம்பு ₹8,00,000 ஆக உயர்த்தப்பட்டுள்ளது.",
     annualGain: "கூடுதல் வருடாந்திர பலன்",
-    conservativeNotice: "2023-24 சுற்றறிக்கை மற்றும் திருத்தப்பட்ட 2026-27 அறிவிப்புக்கு இடையிலான நேரடி ஒப்பீடு.",
+    conservativeNotice: "2023-24 சுற்றறிக்கை மற்றும் திருத்தப்பட்ட 2024-25 அறிவிப்புக்கு இடையிலான நேரடி ஒப்பீடு.",
   },
   te: {
     sectionTitle: "అధికారిక విధాన నవీకరణలు & పోలిక",
-    versionTag: "2023-24 మార్గదర్శకాలు vs 2026-27 నోటిఫికేషన్",
+    versionTag: "2023-24 మార్గదర్శకాలు vs 2024-25 నోటిఫికేషన్",
     verifiedBadge: "ధృవీకరించబడిన మార్గదర్శకాలు",
     btnCheck: "తాజా PIB అప్‌డేట్‌లను తనిఖీ చేయండి",
     btnChecking: "pib.gov.in తనిఖీ చేస్తోంది...",
@@ -90,7 +90,7 @@ const liveUpdateDict = {
     eligibilityFlipTitle: "శుభవార్త! సవరించిన నిబంధనల ప్రకారం మీరు అర్హులు",
     eligibilityFlipDesc: "కుటుంబ ఆదాయ పరిమితి ₹8,00,000కి సడలించబడింది.",
     annualGain: "అదనపు వార్షిక ప్రయోజనం",
-    conservativeNotice: "అధికారిక 2023-24 సర్క్యులర్ మరియు సవరించిన 2026-27 నోటిఫికేషన్ మధ్య ప్రత్యక్ష ధృవీకరణ.",
+    conservativeNotice: "అధికారిక 2023-24 సర్క్యులర్ మరియు సవరించిన 2024-25 నోటిఫికేషన్ మధ్య ప్రత్యక్ష ధృవీకరణ.",
   }
 };
 
@@ -297,11 +297,11 @@ export default function SchemeDetail() {
     ...rawImpact,
     delta: language === 'hi' ? '+₹7,200/वर्ष' : language === 'ta' ? '+₹7,200/ஆண்டு' : language === 'te' ? '+₹7,200/ఏడాది' : rawImpact.delta,
     status_change: language === 'hi' 
-      ? 'आप संशोधित 2026-27 दिशानिर्देशों के तहत अधिक लाभ पाने के लिए पात्र हैं।'
+      ? 'आप संशोधित 2024-25 दिशानिर्देशों के तहत अधिक लाभ पाने के लिए पात्र हैं।'
       : language === 'ta'
-      ? 'திருத்தப்பட்ட 2026-27 வழிகாட்டுதல்களின் கீழ் நீங்கள் அதிக பலனைப் பெறத் தகுதியுடையவர்.'
+      ? 'திருத்தப்பட்ட 2024-25 வழிகாட்டுதல்களின் கீழ் நீங்கள் அதிக பலனைப் பெறத் தகுதியுடையவர்.'
       : language === 'te'
-      ? 'సవరించిన 2026-27 మార్గదర్శకాల ప్రకారం మీరు మరింత ప్రయోజనం పొందడానికి అర్హులు.'
+      ? 'సవరించిన 2024-25 మార్గదర్శకాల ప్రకారం మీరు మరింత ప్రయోజనం పొందడానికి అర్హులు.'
       : rawImpact.status_change
   } : null;
 
