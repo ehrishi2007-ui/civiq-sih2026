@@ -15,3 +15,10 @@ export const compareSchemePolicy = (schemeId, userProfile = null) => {
     user_profile: userProfile,
   });
 };
+
+export const autoUpdatePolicy = (schemeId, citizenProfile = null) => {
+  return api.post('/api/v1/policy/auto-update', {
+    scheme_id: schemeId,
+    citizen_profile: citizenProfile,
+  });
+};
